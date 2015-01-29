@@ -333,8 +333,8 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 
     var directiveDefinitionObject ={
         restrict:"E",
-        restricteplace : true,
-        // No hay que poner comillas dentro del texto.
+        replace : true,
+        // Las comillas de dentro hay que ponerlas: \".
         template:"<div data-ng-bind={{fechaFormateada}}></div><br>"
     }
    
@@ -345,7 +345,7 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 
     var directiveDefinitionObject ={
         restrict:"E",
-        restricteplace : true,
+        replace : true,
         // Las comillas deben estar precedidas de '\'.
         template:"<span  class=\"error\" data-ng-show=\"miFormulario.city.$error.pattern\">Solo puede contener caracteres alfabéticos</span>"
     }
@@ -357,8 +357,8 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
    var directiveDefinitionObject ={
 
         restrict:"E",
-        restricteplace : true,
-        // No hay que poner comillas dentro del texto.
+        replace : true,
+        // Las comillas de dentro hay que ponerlas: \".
         template:"<div>Titulo: {{titulo}}</div>",
         // Indicamos que la variable 'titulo' NO pertenece al scope del controlador
         scope:{
@@ -401,8 +401,8 @@ return directiveDefinitionObject;
 .directive("miTitulo2",[function(){
    var directiveDefinitionObject ={
         restrict:"E",
-        restricteplace : true,
-        // No hay que poner comillas dentro del texto.
+        replace : true,
+        // Las comillas de dentro hay que ponerlas: \".
         template:"{{texto}}<br><button ng-click=\"texto='Texto cambiado desde dentro de la directiva'\">Cambiar valor de scope.texto de la directiva y del controlador</button></div>",
         // Indicamos que la variable 'titulo' NO pertenece al scope del controlador
         scope:{
@@ -423,8 +423,8 @@ return directiveDefinitionObject;
    var directiveDefinitionObject ={
 
         restrict:"E",
-        restricteplace : true,
-        // No hay que poner comillas dentro del texto.
+        replace : true,
+        // Las comillas de dentro hay que ponerlas: \".
         //template:"<span class=error data-ng-show=miFormulario.age.$error.max>Edad inválida XD</span>",
         template:"<span class=\"error\" data-ng-show=\"miFormulario.age.$error.min\">Tienes que tener 18 años</span><span class=\"error\" data-ng-show=\"miFormulario.age.$error.max\">Edad inválida</span><span class=\"error\" data-ng-show=\"miFormulario.age.$error.number\">La edad debe ser numérica</span>",
        
@@ -438,8 +438,8 @@ return directiveDefinitionObject;
    var directiveDefinitionObject ={
 
         restrict:"E",
-        restricteplace : true,
-        // No hay que poner comillas dentro del texto.
+        replace : true,
+        // Las comillas de dentro hay que ponerlas: \".
         //template:"<span class=error data-ng-show=miFormulario.age.$error.max>Edad inválida XD</span>",
         template:"<span class=\"error\" data-ng-show=\"miFormulario.telefono.$error.pattern\">Número de teléfono incorrecto</span>",
        
