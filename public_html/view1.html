@@ -1,0 +1,155 @@
+<div>
+<div data-ng-show="param1!=null">Parametro 1: {{param1}}</div>
+<!-- Con null se compara con el '==' y NO con el '==='-->
+<div data-ng-hide="param11==null">Parametro 2: {{param11}}</div>
+<!-- Con la directiva ng-click manejamos eventos de clic llamando a una función del scope-->
+</p></p>
+<button data-ng-click="toIndex()">Return to index</button>
+</p></p>
+
+   <h3>Trying with the directive service:</h3>
+    <p data-ng-bind="mensaje"></p></p>
+   <input type="text" data-ng-model="arg"></p>
+   <data-mi-titulo titulo="{{arg|uppercase}}" color="azul"></data-mi-titulo></p></p>
+   <data-mi-titulo2 texto="mensaje"></data-mi-titulo2></p></p>
+   
+   
+  
+
+   <h3>Trying with the ng-disabled-show-hide directive:</h3>
+   <input type="checkbox" data-ng-model="marcada"> Opción marcada: {{marcada}}</p>
+
+    <!-- La directiva ng-disabled nos permite habilitar o deshabilitar un elemento de entrada de datos como un <input> un <select> o un <button>-->
+    <input data-ng-disabled="marcada===false" data-ng-model="algo2" type="text"/> {{algo}}</p>
+    <!-- Esta opción no se por qué no funciona -->
+    <input data-ng-disabled="disabled()"  type="text" ng-model="algo2" />{{algo2}}</p>
+    
+    <!-- La directiva ng-show permite que un elemento de la página se haga visible o invisible en función de cualquier valor del $scope y por lo tanto de nuestro modelo. -->
+    <!-- La directiva ng-hide funciona al revés que la ng-show. -->
+    <label data-ng-show="marcada===true">La opción está marcada</label>
+    <label data-ng-hide="marcada===true">La opción no está marcada</label>
+
+
+
+
+    <h3>Looping with the ng-init directive , and the ng-repeat directive and limitTo:2</h3>
+
+<!-- Con la directiva ng-cloak se hace que inicialmente el elemento HTML no sea visible hasta que no se haya ejecutado el controlador y AngularJS calcule si en función de ng-show o ng-hide debe verse el elemento.-->
+<!-- Con la directiva ng-init declaramos una valor en el scope y la inicializamos dándole un valor determinado -->
+<div class="container" data-ng-cloak data-ng-init="persons=[{name:'Ricardo',city:'Toledo'},{name:'Sara',city:'Granada'}, {name: 'Rocio', city:'Pamplona'}, {name: 'Almudena', city:'Sevilla'}, {name: 'Raul', city:'Pamplona'},{name:'Sergio',city:'Teruel'}]">
+
+<ul>
+        <!-- Filtros ('|') que se pueden pasar a una variable: -->
+        <!-- uppercase -->
+        <!-- downcase -->
+        <!-- Con la directiva ng-repeat iteramos un array obteniendo sus valores-->
+        <li data-ng-repeat="person in persons | orderBy:'name' | limitTo:2">{{person.name | uppercase}}</li>
+</ul></p>
+ 
+
+
+    <h3>Trying with the ng-model directive:</h3>
+    <p>Write a filter<p>
+
+    <!-- Con la directiva ng-model declaramos variables para almacenar valores de entrada (<input>)-->
+    <!-- ng-model="nombre_variable" -->
+    <!-- Las variables del scope para mostrarlas se ponen entre dobles llaves {{ nombre_variable }}-->
+    <p>Name: <input type="text" data-ng-model="filtro"></p>
+    <p>City: <input type="text" data-ng-model="filtro2"></p>
+    
+    
+    
+
+
+
+    <h3>Trying with the ng-repeat directive, filter by name and city and order by name </h3>
+    <ul>
+    <!-- Filtros ('|') a usar en la directiva ng-repeat: -->
+    <!-- filter: nombre_variable_filtro -->
+    <!-- filter: {'nombre_atributo':nombre_variable_filtro}:booleano -->
+    <!-- orderBy: ' nombre_campo_variable ' --> 
+        <li data-ng-repeat="person in persons | filter:{'name':filtro, 'city':filtro2}:false | orderBy:'name'">{{person.name}} - {{person.city}}</li>
+    </ul></p>
+</div>
+
+
+
+
+<div class="internalController" data-ng-controller="internalController" > 
+    <h3>Trying with a internal controller</h3>
+    <p>Write a filter<p>
+    <p>Customer: <input type="text" data-ng-model="personText"> </p>
+    <ul>
+    <!-- Con '$' indicamos que queremos buscar coincidencias en todos los atributos de 'person' y con el atributo 'true' indicamos que ha de ser una coincidencia exacta-->
+        <li data-ng-repeat="person in people | filter:{$:personText}:true">{{person.firstName}} -  {{person.lastName}} - {{person.city}}</li>
+    </ul></p>
+    
+</div>
+
+
+
+<div class="externalController"   > 
+    <h3>Trying with external controller</h3>
+    <p>Write a filter<p>
+    <p>Customer: <input type="text" data-ng-model="customerText"> </p>
+    <ul>
+        <li data-ng-repeat="customer in customers | filter:customerText">{{customer.firstName}} -  {{customer.lastName}} - {{customer.city}} - {{customer.age}} - {{customer.email}} - {{customer.url}}</li>
+    </ul></p>
+
+
+    <h3>Trying with the ng-click directive and validations</h3>
+    <p>Insert a new customer<p>
+    <!--¡IMPORTANTE!: Poner el atributo 'novalidate' en la etiqueta 'form' para que el navegador No realice validaciones que puedan colisionar con las de angularjs-->
+    <form name="miFormulario" novalidate>
+    <!-- Para que las validaciones funcionen es necesario que los distintos campos tengan la propiedad 'name'-->
+        <p>First name: <input type="text" name="first_name" data-ng-model="newCustomer.firstName" data-ng-maxlength="20" required> </p>
+        <p>Last name: <input type="text" name="last_name" data-ng-model="newCustomer.lastName" ng-minlength="3" required> </p>
+        <p>City: <input type="text" name="city" data-ng-model="newCustomer.city" data-ng-pattern="pattern"  required> </p>
+        <!-- Invocamos una directiva creada por nosotros-->
+        <data-mi-city-error></data-mi-city-error>
+        <!--Las directivas 'min' y 'max' se ponen sin el prefijo 'ng-'-->
+        <p>Age: <input type="number" name="age" data-ng-model="newCustomer.age" max="99" min="18" required> </p>
+        <!-- Comprobamos la validez de la direcitva 'min'-->
+        <data-mi-validacion-edad></data-mi-validacion-edad>
+        <p>Telefono: <input type="string" name="telefono" data-ng-model="newCustomer.telefono"  data-ng-pattern="pattern2" data-ng-required="requerido"> </p>
+        <data-mi-validacion-telefono></data-mi-validacion-telefono>
+        <p>Email: <input type="email" name="email" data-ng-model="newCustomer.email" data-ng-required="requerido"> </p>
+        <p>Url: <input type="url" name="url" data-ng-model="newCustomer.url" data-ng-required="requerido"> </p>
+    </form>
+    <!-- Con la directiva ng-click manejamos eventos de clic llamando a una función del scope-->
+    <!-- El botón estará inactivo si el formulario es inválido -->
+    <button data-ng-click="addCustomer()" data-ng-disabled="miFormulario.$invalid">Add customer</button>
+    </p>
+
+    <h2>Formulario</h2>
+    <!-- El $scope tiene una propiedad que se llama como el nombre del formulario HTML y que es una instancia de la clase FormController -->
+    <!-- $pristine: Vale true si el formulario o campo aún no ha sido modificado por el usuario, si no vale false. -->
+    miFormulario.$pristine:  {{miFormulario.$pristine}}<br>
+    <!-- $dirty: Vale true si el formulario o campo ya ha sido modificado por el usuario, si no vale false. -->
+    miFormulario.$dirty:  {{miFormulario.$dirty}}<br>
+    <!-- $valid : Vale true si el formulario o el campo son válidos, es decir, si cumplen todas las validaciones que se han indicado en los campos. -->
+    miFormulario.$valid:  {{miFormulario.$valid}}<br>
+    <!-- $invalid : Vale true si el formulario o el campo son inválidos, es decir, si se incumple alguna de las validaciones que se han indicado en los campos. -->
+    miFormulario.$invalid:  {{miFormulario.$invalid}}<br>
+
+
+</div>
+
+<div class="http"   > 
+    <h3>Trying with $http service</h3>
+    <p>Write a filter<p>
+    <p>Customer: <input type="text" data-ng-model="customerText"> </p>
+    <ul>
+        <li data-ng-repeat="dato in datos | filter:customerText">{{dato.firstName}} -  {{dato.lastName}} - {{dato.city}}</li>
+    </ul></p>
+
+
+ 
+
+
+</div>
+
+<a href="#/view2">View 2</a> 
+</p></p>
+
+</div>

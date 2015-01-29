@@ -1,0 +1,34 @@
+<div class="container4" >
+<!-- Con null se compara con el '==' y NO con el '==='-->
+<div data-ng-hide="param4==null">Parametro: {{param4}}</div>
+</p></p>
+<button data-ng-click="toIndex()">Return to index</button>
+</p></p>
+<h3>Trying with provider:</h3></p></p>
+
+Contrase&ntilde;a:<input ng-model="password" />
+
+    <br>
+
+    El hash de la contrase&ntilde;a es:
+
+    <br>
+
+    {{getHash(password)}}</p></p>
+
+    
+
+<h3>Trying with filter:</h3></p></p>
+ {{ valorEscalar | mayusculas:3}}
+
+  <br>
+
+  <br>
+  <!-- 'mayusculas' es un 'filter' que toma como parámetros 'valor' y un número.-->
+  <div ng-repeat="valor in valorArray | mayusculas:3">
+
+    {{valor}}
+
+  </div>
+    
+</div>

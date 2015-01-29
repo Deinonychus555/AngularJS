@@ -1,0 +1,87 @@
+<div class="container2" >
+<div data-ng-show="param2!=null">Parametro: {{param2}}</div>
+
+</p></p>
+<button data-ng-click="toHome()">Return to index</button>
+</p></p>
+
+<h1>View 2</h1>
+</p></p>
+
+<!-- La directiva ng-options permite dar valores en un '<select>'-->
+<!--ng-options=”valor as etiqueta for item in items track by claveunica”  -->
+<h3>Trying with the ng-options directive:</h3>
+<select ng-model="provinciaSeleccionada" ng-options="provincia as provincia.nombre for provincia in provincias track by provincia.idProvincia" >
+  <option value="">--Elige opcion--</option>
+</select>
+
+<div data-ng-cloak>
+    <label data-ng-hide="provinciaSeleccionada===null">La provincia seleccionada ha sido {{provinciaSeleccionada.nombre}}</label>
+</div>
+
+
+
+<!-- Con la directiva ng-if se inserta o no una etiqueta en el DOM.-->
+<h3>Trying with the ng_if directive:</h3>
+<input type="checkbox" data-ng-model="activo"/>Insertar etiqueta en el DOM
+<div data-ng-if="activo">Etiqueta insertada</div>
+ 
+
+
+<!-- Con la directiva ng-switch se inserta una etiqueta determinada en el DOM.-->
+<!-- ng-switch on="nombre_variable"-->
+<!-- ng-switch-when="valor"-->
+<!-- ng-switch-default-->
+<h3>Trying with the ng_switch directive:</h3>
+
+ Escribe una "A" o una "B" o cualquier otra cosa:<input ng-model="switch">
+<div  data-ng-switch on="switch" >
+          <div data-ng-switch-when="A">Este texto solo esta si hay una A</div>
+          <div data-ng-switch-when="a">Este texto solo esta si hay una a</div>
+          <div data-ng-switch-when="B">Texto para el valor B</div>
+          <div data-ng-switch-when="b">Texto para el valor b</div>
+          <div data-ng-switch-default>Texto para cuando no es ni A ni B</div>
+ </div>    
+
+
+
+
+<!-- ng-class="nombre_variable"-->
+<h3>Trying with the ng_class directive</h3>
+<input ng-model="css.rosa" type="checkbox">Aplicar estilo Rosa<br>
+<input ng-model="css.subrayado"  type="checkbox">Aplicar estilo Subrayado<br>
+<input ng-model="css.negrita"  type="checkbox">Aplicar estilo Negrita<br><br>  
+<div ng-class="css">Este es un texto con clases dinámicas</div>
+
+
+
+
+<h3>Trying with the $timeout service:</h3>
+&iquest;Se ha producido el evento? {{producidoEvento}}</p></p>
+
+
+
+<h3>Trying with constant:</h3>
+El valor de la constante es: {{constante}}</p></p>
+
+
+
+<h3>Trying with value:</h3>
+El resultado de la resta es: {{value}}</p></p>
+
+
+
+<h3>Trying with service:</h3>
+{{service}}</p></p>
+
+
+<h3>Trying with filters</h3>
+Importe formateado:{{importeFormateado}}<br></p></p>
+
+
+<input type=“date” date-picker="yyyy-MM-dd" data-ng-model="fecha">
+La fecha que has elegido es: {{fecha}}<br>
+Es posible que debido al nabegador no se visualice el calendario. 
+
+
+</div>

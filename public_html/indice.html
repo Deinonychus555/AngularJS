@@ -1,0 +1,30 @@
+</p></p>
+<h1>Bienvenido a AngularJS</h1></p>
+<h4>¡IMPORTANTE!: Solo se puede cargar un módulo</h4></p><p>
+Para manejar AngularJS se necesitan dos librerías fundamentalmente:
+<!--Usamos la directiva ng-bind en lugar de {{}} para que no te muestre las {{}} en por pantalla hasta que haya cargado los valores de $scope. Realmente solo haría fata utilizarlo en la primera página-->
+<ul>
+    <li data-ng-bind="libreria1"></li> <!-- <li> {{libreria1}}</li>-->
+    <li data-ng-bind="libreria2"></li> <!-- <li> {{libreria2}}</li>-->
+</ul></p></p></p></p>
+
+Contenido:
+<nav> <!-- Etiqueta para los menús-->
+        <ul>
+            <!-- Hay que sobre anteponer el caracter '#' antes de la ruta -->
+            <!-- La ruta es la que se declara en $routeProvider -->
+            <li><a href="#/view1">View 1</a></li>
+            <li><a href="#/view2">View 2</a></li>
+            <li><a href="#/view3">View 3</a></li>
+            <li><a href="#/view4">View 4</a></li>
+            <li><a href="#/view5">View 5</a></li>
+        </ul>
+    </nav>
+ </p></p>
+</p></p>
+ Referencias:
+ <!-- Con la directiva ng-href se espera a que se carguen las variables del scope antes de pinchar en el enlace-->
+ <ul>
+    <li><a data-ng-href="{{ref1}}">cursoangularjs</a> </li>
+    <li><a data-ng-href="{{ref2}}">angularjs</a> </li>  
+</ul></p></p>

@@ -1,0 +1,83 @@
+<div class="container4" >
+<div data-ng-show="param5!=null">Parametro 1: {{param5}}</div>
+<!-- Con null se compara con el '==' y NO con el '==='-->
+<div data-ng-hide="param55==null">Parametro 2: {{param55}}</div>
+</p></p>
+<button data-ng-click="toIndex()">Return to index</button>
+</p></p>
+
+<h1>Directivas</h1>
+</p></p>
+
+<ul>
+ <li>    ng-blur: Cuando se produce el evento blug.</li> </p>
+ <li>   ng-dblclick: Cuando se produce el evento doble click.</li> </p>
+<li>   ng-change: Cuando se cambia el tag <!--<input>--> o <!--<select>--> pero no cuando  se cambia a consecuencias del propio modelo.</li> </p>
+<li>     ng-cut: Cuando se produce el evento cut.</li> </p></p>
+</ul>
+
+Eventos de teclado</p></p>
+<ul>
+ <li>    ng-keydown: Cuando se produce el evento keydown.</li> </p>
+ <li>    ng-keyup: Cuando se produce el evento keyup.</li> </p>
+ <li>    ng-keypress: Cuando se produce el evento keypress.</li> </p></p>
+</ul>
+
+Eventos de ratón</p></p>
+<ul>
+ <li>    ng-mousedown: Cuando se produce el evento mousedown.</li> </p>
+ <li>    ng-mouseenter: Cuando se produce el evento mouseenter.</li> </p>
+ <li>    ng-mouseleave: Cuando se produce el evento mouseleave.</li> </p>
+<li>     ng-mousemove: Cuando se produce el evento mousemove.</li> </p>
+<li>     ng-mouseover: Cuando se produce el evento mouseover.</li> </p>
+ <li>    ng-mouseup: Cuando se produce el evento mouseup.</li></p></p>
+</ul>
+</p></p>
+
+Más directivas</p></p>
+<ul>
+<li>     ng-include: Para incluir vistas, indicadas en src"'ruta'"</li> </p>
+<li>    ng-bind: Permite enlazar los datos de $scope en la página HTML. Se utiliza en la primera página en lugar de directamente {{}}</li> </p>
+ <li>    ng-bind-html: Permite escapar etiquetas html.</li> </p>
+ <li>     ng-non-bindable: Escapa las {{}}.</li> </p>
+<li>     ng-cloak: Hace que inicialmente el elemento HTML no sea visible hasta que no se haya ejecutado el controlador y AngularJS calcule si en función de ng-show o ng-hide debe verse el elemento.</li></p></p>
+<li>ng-src: Se espera que se cargue el scope para escapar las {{}}.</li></p>
+<li>ng-href: Evita que se pueda pinchar en un enlace <a> con una expresión de AngularJS antes de que ésta se haya resuelto</li></p>
+<li>ng-repeat: Para iterar en arrays.</li></p>
+<li>ng-options: Permite dar valores en una etiqueta <!--<select>-->.</li></p>
+<li>ng-if: Inserta o no una etiqueta en el DOM.</li></p>
+<li>ng-switch: Similar a ng-if, pero para un valor concreto.</li></p>
+<li>ng-class: Se aplica una serie de estilos de una rchivo css, que según una variable del scope estarán o no activos.</li></p>
+</ul>
+</p></p>
+
+<h1>Servicios</h1>
+</p></p>
+<ul>
+ <li>    $scope: Servicio donde inyectaremos nuestras variables y métodos.</li> </p>
+ <li>    $location: Para redireccionar vistas.</li> </p>
+ <li>    $http: Servicio  permite hacer peticiones AJAX al servidor.</li> </p>
+<li>     value: Para crear constantes con un valor.</li> </p>
+ <li>    service: Para instanciar una clase.</li></p></p>
+ <li>    factory: Para crear constantes con una función.</li> </p>
+ <li>    provider: Para crear constantes con una función.</li></p>
+ <li>    constant: Para crear constantes con un valor.</li></p></p>
+ <li>    run: Será lo primero a ejecutar, ideal para cargar variables globales nen el scope, que puedan utilizar todos los controladores.</li></p></p>
+ <li>    directive: Para definir nuestras propias directivas.</li></p></p>
+</ul>
+
+<h1>Filtros</h1>
+</p></p>
+<ul>
+ <li>    number: Para indicar el número de decimales a mostrar.</li> </p>
+<li>     date: Este filtro se aplica sobre fechas para mostrar un formato concreto. .</li> </p>
+ <li>    currency: Este filtro muestra un número con el símbolo de la moneda local y con el número de decimales correctos.</li> </p>
+<li>     orderBy: Permite ordenar un array de datos.</li> </p>
+ <li>    limitTo: Este filtro permite limitar el nº de elementos que se muestran del array. </li></p></p>
+ <li>    filter: Busca coincidencias en cualquiera de sus propiedades. Acepta como parámetro funciones predefinidas.</li> </p>
+ <li>    uppercase: Convierte a mayúsculas.</li></p>
+ <li>    downcase: Convierte a minúsculas.</li></p></p>
+</ul>
+   
+  Nota: constant se puede inyectar en provider y en un bloque config al igual que provider.
+</div></p></p>

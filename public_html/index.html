@@ -1,0 +1,91 @@
+<!DOCTYPE html><!-- Pulsar Alt+6 para ejecutar en el navegador-->
+
+<!-- Conla directiva ng-app cargamos el módulo que queramos utilizar-->
+<!-- ¡IMPORTANTE!: Solo se puede cargar un módulo-->
+<!-- Si queremos hacer uso de varios módulos lo haremos mediante dependencia -->
+<html html lang="es" data-ng-app="moduleAngular">
+
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="estilo.css">
+
+    <title>AngularJs</title>
+</head>
+
+<body>
+
+
+<!-- Con la directiva ng-include cargamos una vista -->
+<!-- Cuidado con la ruta, va entre comillas dobles y luego comillas simples: "'archivo.html'"-->
+<data-ng-include src=" ' header.html ' "></data-ng-include>
+<div ng-bind-html="texto_con_etiquetas"></div>
+
+
+
+<!-- ESPACIO PARA LAS VISTAS-->
+<div class="vistas">
+<hr /> <!-- Barra gris horizontal que atraviesa la pantalla-->
+
+<!-- Con la directiva ng-view se llama a la ruta por defecto indicada en $routeprovider-->
+    <div data-ng-view></div>
+
+<hr /> <!-- Barra gris horizontal que atraviesa la pantalla-->
+<div>
+
+
+
+<!-- Con la directiva ng-include cargamos una vista -->
+<data-ng-include src=" ' footer.html ' "></data-ng-include></div></p>
+
+
+
+<!-- Declaración de un controlador interno -->
+<script>
+    function internalController($scope){
+        $scope.people=[   
+                            {firstName:'María', lastName: 'Tumaca', city: 'Sevilla'},
+                            {firstName:'Ramón', lastName: 'Gomez', city: 'Madrid'},
+                            {firstName:'Javier', lastName: 'de la Torre', city: 'Avila'},
+                            {firstName:'Oscar', lastName: 'Amores', city: 'Toledo'},
+                            {firstName:'David', lastName: 'Pajares', city: 'Jaen'},
+                            
+                        ];
+    }
+</script>
+
+<!-- Librerías necesarias para manejar angularjs -->
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<!-- Con este script le indicamos a angular nuestro país e idioma -->
+<!-- NO se carga en el módulo -->
+<script src="http://code.angularjs.org/1.2.26/i18n/angular-locale_es-es.js"></script>
+
+
+<!-- ¡¡ Las librerías de angular que vayamos a usar habrá que cargarlas en el módulo principal !!-->
+
+<!-- Librería necesaria para manipular rutas en $routeProvider -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.js"></script>
+
+<!-- Librería para la directiva ng-bind-html-->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-sanitize.js"></script>
+
+<!-- Librerías para codificar contraseñas -->
+ <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha256.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha512.js"></script>
+
+<!-- Se especifican los módulos a utilizar: -->
+<!-- El módulo principal que se indicará en la directiva ng-app -->
+<!-- El resto de módulos que se pasarán al módulo principal como dependencias de éste-->
+<script src="moduleAngular.js"></script>
+<script src="moduleAngular2.js"></script>
+<script src="moduleAngular3.js"></script>
+<script src="moduleAngular4.js"></script>
+
+<!-- ¡IMPORTANTE!: Solo se puede cargar un módulo-->
+</body>
+</html>
