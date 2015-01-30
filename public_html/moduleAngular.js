@@ -401,7 +401,7 @@ return directiveDefinitionObject;
 .directive("miTitulo2",[function(){
    var directiveDefinitionObject ={
         restrict:"E",
-        replace : true,
+        replace : false,
         // Las comillas de dentro hay que ponerlas: \".
         template:"{{texto}}<br><button ng-click=\"texto='Texto cambiado desde dentro de la directiva'\">Cambiar valor de scope.texto de la directiva y del controlador</button></div>",
         // Indicamos que la variable 'titulo' NO pertenece al scope del controlador
@@ -423,7 +423,7 @@ return directiveDefinitionObject;
    var directiveDefinitionObject ={
 
         restrict:"E",
-        replace : true,
+        replace : false,
         // Las comillas de dentro hay que ponerlas: \".
         //template:"<span class=error data-ng-show=miFormulario.age.$error.max>Edad inválida XD</span>",
         template:"<span class=\"error\" data-ng-show=\"miFormulario.age.$error.min\">Tienes que tener 18 años</span><span class=\"error\" data-ng-show=\"miFormulario.age.$error.max\">Edad inválida</span><span class=\"error\" data-ng-show=\"miFormulario.age.$error.number\">La edad debe ser numérica</span>",
