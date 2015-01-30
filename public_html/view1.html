@@ -20,9 +20,9 @@
    <input type="checkbox" data-ng-model="marcada"> Opción marcada: {{marcada}}</p>
 
     <!-- La directiva ng-disabled nos permite habilitar o deshabilitar un elemento de entrada de datos como un <input> un <select> o un <button>-->
-    <input data-ng-disabled="marcada===false" data-ng-model="algo2" type="text"/> {{algo}}</p>
+    <input data-ng-disabled="marcada===false" data-ng-model="algo" type="text"/> {{algo}}</p>
     <!-- Esta opción no se por qué no funciona -->
-    <input data-ng-disabled="disabled()"  type="text" ng-model="algo2" />{{algo2}}</p>
+    <input data-ng-disabled="isDisabled()"  type="text" data-ng-model="algo2" />{{algo2}}</p>
     
     <!-- La directiva ng-show permite que un elemento de la página se haga visible o invisible en función de cualquier valor del $scope y por lo tanto de nuestro modelo. -->
     <!-- La directiva ng-hide funciona al revés que la ng-show. -->
@@ -54,8 +54,8 @@
     <!-- Con la directiva ng-model declaramos variables para almacenar valores de entrada (<input>)-->
     <!-- ng-model="nombre_variable" -->
     <!-- Las variables del scope para mostrarlas se ponen entre dobles llaves {{ nombre_variable }}-->
-    <p>Name: <input type="text" data-ng-model="filtro"></p>
-    <p>City: <input type="text" data-ng-model="filtro2"></p>
+    <p>Name: <input type="text" data-ng-model="filtro"   placeholder="Escribe un filtro" ></p>
+    <p>City: <input type="text" data-ng-model="filtro2" placeholder="Escribe un filtro"></p>
     
     
     
@@ -77,11 +77,11 @@
 
 <div class="internalController" data-ng-controller="internalController" > 
     <h3>Trying with a internal controller</h3>
-    <p>Write a filter<p>
-    <p>Customer: <input type="text" data-ng-model="personText"> </p>
+    <p>Se buscarán coincidencias en todos los campos<p>
+    <input type="text" data-ng-model="personText" placeholder="Escribe un filtro"> </p>
     <ul>
     <!-- Con '$' indicamos que queremos buscar coincidencias en todos los atributos de 'person' y con el atributo 'true' indicamos que ha de ser una coincidencia exacta-->
-        <li data-ng-repeat="person in people | filter:{$:personText}:true">{{person.firstName}} -  {{person.lastName}} - {{person.city}}</li>
+        <li data-ng-repeat="person in people | filter:{$:personText}:false">{{person.firstName}} -  {{person.lastName}} - {{person.city}}</li>
     </ul></p>
     
 </div>
@@ -90,8 +90,8 @@
 
 <div class="externalController"   > 
     <h3>Trying with external controller</h3>
-    <p>Write a filter<p>
-    <p>Customer: <input type="text" data-ng-model="customerText"> </p>
+    <p>Se buscarán coincidencias en cualquiera de los campos<p>
+    <p>Customer: <input type="text" data-ng-model="customerText" placeholder="Escribe un filtro"> </p>
     <ul>
         <li data-ng-repeat="customer in customers | filter:customerText">{{customer.firstName}} -  {{customer.lastName}} - {{customer.city}} - {{customer.age}} - {{customer.email}} - {{customer.url}}</li>
     </ul></p>
@@ -102,19 +102,19 @@
     <!--¡IMPORTANTE!: Poner el atributo 'novalidate' en la etiqueta 'form' para que el navegador No realice validaciones que puedan colisionar con las de angularjs-->
     <form name="miFormulario" novalidate>
     <!-- Para que las validaciones funcionen es necesario que los distintos campos tengan la propiedad 'name'-->
-        <p>First name: <input type="text" name="first_name" data-ng-model="newCustomer.firstName" data-ng-maxlength="20" required> </p>
-        <p>Last name: <input type="text" name="last_name" data-ng-model="newCustomer.lastName" ng-minlength="3" required> </p>
-        <p>City: <input type="text" name="city" data-ng-model="newCustomer.city" data-ng-pattern="pattern"  required> </p>
+        <p>First name: <input type="text" name="first_name" data-ng-model="newCustomer.firstName" data-ng-maxlength="20" placeholder="Nombre"  required> </p>
+        <p>Last name: <input type="text" name="last_name" data-ng-model="newCustomer.lastName" ng-minlength="3" placeholder="Apellido" required> </p>
+        <p>City: <input type="text" name="city" data-ng-model="newCustomer.city" data-ng-pattern="pattern" placeholder="Ciudad" required> </p>
         <!-- Invocamos una directiva creada por nosotros-->
         <data-mi-city-error></data-mi-city-error>
         <!--Las directivas 'min' y 'max' se ponen sin el prefijo 'ng-'-->
-        <p>Age: <input type="number" name="age" data-ng-model="newCustomer.age" max="99" min="18" required> </p>
+        <p>Age: <input type="number" name="age" data-ng-model="newCustomer.age" max="99" min="18" placeholder="Has de ser mayor de edad" required> </p>
         <!-- Comprobamos la validez de la direcitva 'min'-->
         <data-mi-validacion-edad></data-mi-validacion-edad>
-        <p>Telefono: <input type="string" name="telefono" data-ng-model="newCustomer.telefono"  data-ng-pattern="pattern2" data-ng-required="requerido"> </p>
+        <p>Telephone: <input type="string" name="telefono" data-ng-model="newCustomer.telefono"  data-ng-pattern="pattern2" placeholder="612345678" data-ng-required="requerido"> </p>
         <data-mi-validacion-telefono></data-mi-validacion-telefono>
-        <p>Email: <input type="email" name="email" data-ng-model="newCustomer.email" data-ng-required="requerido"> </p>
-        <p>Url: <input type="url" name="url" data-ng-model="newCustomer.url" data-ng-required="requerido"> </p>
+        <p>Email: <input type="email" name="email" data-ng-model="newCustomer.email" placeholder="micorreo@dominio.xx" data-ng-required="requerido"> </p>
+        <p>Url: <input type="url" name="url" data-ng-model="newCustomer.url" placeholder="http://www.direccion.xxx"  data-ng-required="requerido"> </p>
     </form>
     <!-- Con la directiva ng-click manejamos eventos de clic llamando a una función del scope-->
     <!-- El botón estará inactivo si el formulario es inválido -->
@@ -137,8 +137,8 @@
 
 <div class="http"   > 
     <h3>Trying with $http service</h3>
-    <p>Write a filter<p>
-    <p>Customer: <input type="text" data-ng-model="customerText"> </p>
+    <p>Se buscarán coincidencias en cualquiera de los campos<p>
+    <p>Customer: <input type="text" data-ng-model="customerText" placeholder="Escribe un filtro"> </p>
     <ul>
         <li data-ng-repeat="dato in datos | filter:customerText">{{dato.firstName}} -  {{dato.lastName}} - {{dato.city}}</li>
     </ul></p>

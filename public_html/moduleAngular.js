@@ -1,3 +1,7 @@
+
+// ¡IMPORTANTE!: Todas las variables pertenecientes del scope deben declararse con el prefijo '$scope.'.
+     
+     
      
 function Rectangulo(tamanyoInicial) {
   this.ancho=tamanyoInicial.ancho;
@@ -216,9 +220,9 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
     $scope.marcada=false;
 
     // Función para deshabilitar algún elemento de entrada de datos.
-    $scope.disabled=function() {
-        return (marcada===false) // Se comprueba una variable del scope.
-    }
+    $scope.isDisabled=function() {
+        return ($scope.marcada===false); // Se comprueba una variable del scope.
+    };
 
     $log.debug("Acabamos de crear el $scope");
 
