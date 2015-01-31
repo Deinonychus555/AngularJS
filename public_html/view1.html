@@ -91,11 +91,25 @@
 <div class="externalController"   > 
     <h3>Trying with external controller</h3>
     <p>Se buscarán coincidencias en cualquiera de los campos<p>
-    <p>Customer: <input type="text" data-ng-model="customerText" placeholder="Escribe un filtro"> </p>
+    <p><input type="text" data-ng-model="customerText" placeholder="Escribe un filtro"> </p>
     <ul>
         <li data-ng-repeat="customer in customers | filter:customerText">{{customer.firstName}} -  {{customer.lastName}} - {{customer.city}} - {{customer.age}} - {{customer.email}} - {{customer.url}}</li>
     </ul></p>
 
+    
+    
+    
+    <div class="http"   > 
+        <h3>Trying with $http service</h3>
+        <p>Se buscarán coincidencias <strong>exactas</strong> en cualquiera de los campos<p>
+        <p><input type="text" data-ng-model="customerText" placeholder="Escribe un filtro com Lara"> </p>
+        <ul>
+            <li data-ng-repeat="dato in datos | filter:customerText:true">{{dato.firstName}} -  {{dato.lastName}} - {{dato.city}}</li>
+         </ul></p>
+    </div>
+    
+    
+    
 
     <h3>Trying with the ng-click directive and validations</h3>
     <p>Insert a new customer<p>
@@ -133,23 +147,13 @@
     miFormulario.$invalid:  {{miFormulario.$invalid}}<br>
 
 
-</div>
-
-<div class="http"   > 
-    <h3>Trying with $http service</h3>
-    <p>Se buscarán coincidencias en cualquiera de los campos<p>
-    <p>Customer: <input type="text" data-ng-model="customerText" placeholder="Escribe un filtro"> </p>
-    <ul>
-        <li data-ng-repeat="dato in datos | filter:customerText">{{dato.firstName}} -  {{dato.lastName}} - {{dato.city}}</li>
-    </ul></p>
+</div><br>
+ <h3>Trying with a service</h3>
+<div>Rectangulo: {{rectangulo.to_s()}}</div><br>
 
 
- 
-
-
-</div>
 
 <a href="#/view2">View 2</a> 
-</p></p>
+<br><br>
 
 </div>

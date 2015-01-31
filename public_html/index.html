@@ -16,30 +16,35 @@
     <title>AngularJS</title>
 </head>
 
-<body>
+<body data-ng-controller="controllerAngular">
+    <data-ng-include src=" ' header.html ' "></data-ng-include><br>
 
 
 <!-- Con la directiva ng-include cargamos una vista -->
 <!-- Cuidado con la ruta, va entre comillas dobles y luego comillas simples: "'archivo.html'"-->
-<data-ng-include src=" ' header.html ' "></data-ng-include>
-<div ng-bind-html="texto_con_etiquetas"></div>
+
+<div ng-bind-html="texto_con_etiquetas"></div><br>
+<div >Fecha: {{date}}</div><br>
+<div >Fecha formateada: {{date | dateFormat}}</div><br>
+
+
 
 
 
 <!-- ESPACIO PARA LAS VISTAS-->
 <div class="vistas">
-<hr /> <!-- Barra gris horizontal que atraviesa la pantalla-->
+    <hr /> <!-- Barra gris horizontal que atraviesa la pantalla-->
 
-<!-- Con la directiva ng-view se llama a la ruta por defecto indicada en $routeprovider-->
-    <div data-ng-view></div>
+    <!-- Con la directiva ng-view se llama a la ruta por defecto indicada en $routeprovider-->
+        <div data-ng-view></div>
 
-<hr /> <!-- Barra gris horizontal que atraviesa la pantalla-->
-<div>
+    <hr /> <!-- Barra gris horizontal que atraviesa la pantalla-->
 
+</div>
 
 
 <!-- Con la directiva ng-include cargamos una vista -->
-<data-ng-include src=" ' footer.html ' "></data-ng-include></div></p>
+
 
 
 
@@ -87,5 +92,8 @@
 <script src="moduleAngular4.js"></script>
 
 <!-- ¡IMPORTANTE!: Solo se puede cargar un módulo-->
+
+<data-ng-include src=" ' footer.html ' "></data-ng-include></p>
 </body>
+
 </html>

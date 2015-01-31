@@ -46,26 +46,45 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 // ng-href
 .value("ref1","http://www.cursoangularjs.es/doku.php")
 .value("ref2","https://docs.angularjs.org/api")
-     
+
+   
 
 // El bloque run es una función que se ejecuta al iniciar un programa en AngularJS.  
 // Es buena práctica pasar constantes a bloques 'run' y 'config' a través de servicios
-// 'value' o 'const'.
+// 'value' o 'constant'.
 .run(['$rootScope','$filter','appName','libreria1','libreria2','css','nombre_imagen','ref1','ref2',
     function($rootScope,$filter,appName,libreria1,libreria2,css,nombre_imagen,ref1,ref2) {
   
   // $rootScope será accesible por todos los controladores.
+ 
   $rootScope.appName=appName;
   $rootScope.libreria1=libreria1;
   $rootScope.libreria2=libreria2;
   $rootScope.css=css;
-  $rootScope.nombre_imagen=nombre_imagen;
+  $rootScope.nombre_imagen=nombre_imagen; 
   $rootScope.ref1=ref1;
-  $rootScope.ref2=ref2; 
+  $rootScope.ref2=ref2;
+  $rootScope.date=new Date();
 
   var filtroDate=$filter("date");
-  $rootScope.fechaFormateada=filtroDate(new Date(),'EEEE, MMMM d, y');
+  $rootScope.fechaFormateada=filtroDate(new Date(),'yyyy MMM dd ');
 }])
+
+
+// El servicio 'filter' permite crear un filtro
+// input es lo que recibe el filtro
+.filter('dateFormat', function($filter)
+    {
+     return function(input)
+     {
+      if(input == null){ return ""; } 
+
+      var _date = $filter('date')(new Date(input), 'dd MM yyyy');
+
+      return _date.toUpperCase();
+
+     };
+})
 
 
 
@@ -144,14 +163,19 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 // $http: servicio  permite hacer peticiones AJAX al servidor. 
 // $http acepta como parámetro un único objeto llamado config con todas las propiedades que necesita para la petición. 
 // $log: Este servicio simplemente llama a console.
-.controller("controllerAngular",['$scope',"$routeParams",'$location','$log','$http','$timeout','factoryAngular','nombre_constante','matematicas_simples',
-    function($scope,$routeParams,$location,$log,$http,$timeout,factoryAngular,nombre_constante,matematicas_simples) {
+.controller("controllerAngular",['$scope',"$routeParams",'$location','$log','$http','$timeout','factoryAngular','nombre_constante','matematicas_simples','rectangulo',
+    function($scope,$routeParams,$location,$log,$http,$timeout,factoryAngular,nombre_constante,matematicas_simples,rectangulo) {
 
+ $scope.nombre_imagen2="AngularJS-large.png";
+     
     // Todas las variables iran con el prefijo '$scope.'
 
     $scope.texto={prueba:"Mensaje de prueba"};
    
-
+   // Para hacer pruebas con el servicio 'service'.
+    $scope.rectangulo=rectangulo;
+    
+    $scope.date2=new Date();
 
     // Para hacer pruebas con el servicio 'directive'.
     $scope.mensaje= "Mensaje desde el scope del controlador";
@@ -335,15 +359,17 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
         // Si vale “EA” o “AE” se podrá usar como elemento y como atributo. Este es el funcionamiento por defecto si no se pone nada en la propiedad restrict.
     // replace : Si vale false el contenido del template se añadirá dentro del tag de la propia directiva. Pero si vale true se quitará el tag de la directiva y solo estará el contenido del template.
 
-    var directiveDefinitionObject ={
+  var directiveDefinitionObject ={
         restrict:"E",
         replace : true,
-        // Las comillas de dentro hay que ponerlas: \".
-        template:"<div data-ng-bind={{fechaFormateada}}></div><br>"
+        // Las comillas deben estar precedidas de '\'.
+        template:"<div >Fecha formateada: {{date | dateFormat}}</div><br>"
     }
    
     return directiveDefinitionObject;
 }])
+
+
 
 .directive("miCityError",[function(){
 
