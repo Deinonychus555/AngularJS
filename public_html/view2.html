@@ -11,7 +11,7 @@
 <!-- La directiva ng-options permite dar valores en un '<select>'-->
 <!--ng-options=”valor as etiqueta for item in items track by claveunica”  -->
 <h3>Trying with the ng-options directive:</h3>
-<select ng-model="provinciaSeleccionada" ng-options="provincia as provincia.nombre for provincia in provincias track by provincia.idProvincia" >
+<select data-ng-model="provinciaSeleccionada" data-ng-options="provincia as provincia.nombre for provincia in provincias track by provincia.idProvincia" >
   <option value="">--Elige opcion--</option>
 </select>
 
@@ -36,11 +36,13 @@
 
  Escribe una "A" o una "B" o cualquier otra cosa:<input ng-model="switch">
 <div  data-ng-switch on="switch" >
+    <div data-ng-if="switch!=null">
           <div data-ng-switch-when="A">Este texto solo esta si hay una A</div>
           <div data-ng-switch-when="a">Este texto solo esta si hay una a</div>
           <div data-ng-switch-when="B">Texto para el valor B</div>
           <div data-ng-switch-when="b">Texto para el valor b</div>
           <div data-ng-switch-default>Texto para cuando no es ni A ni B</div>
+    </div>      
  </div>    
 
 
@@ -48,10 +50,10 @@
 
 <!-- ng-class="nombre_variable"-->
 <h3>Trying with the ng_class directive</h3>
-<input ng-model="css.rosa" type="checkbox">Aplicar estilo Rosa<br>
-<input ng-model="css.subrayado"  type="checkbox">Aplicar estilo Subrayado<br>
-<input ng-model="css.negrita"  type="checkbox">Aplicar estilo Negrita<br><br>  
-<div ng-class="css">Este es un texto con clases dinámicas</div>
+<input data-ng-model="css.rosa" type="checkbox">Aplicar estilo Rosa<br>
+<input data-ng-model="css.subrayado"  type="checkbox">Aplicar estilo Subrayado<br>
+<input data-ng-model="css.negrita"  type="checkbox">Aplicar estilo Negrita<br><br>  
+<div data-ng-class="css">Este es un texto con clases dinámicas</div>
 
 
 

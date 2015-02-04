@@ -361,9 +361,11 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 
   var directiveDefinitionObject ={
         restrict:"E",
-        replace : true,
+        replace : false,
         // Las comillas deben estar precedidas de '\'.
-        template:"<div >Fecha formateada: {{date | dateFormat}}</div><br>"
+        template:"<div >Fecha formateada: {{date | dateFormat}}</div><br>",
+        scope:false // indicamos que el scope es el mismo que el del controlador
+       
     }
    
     return directiveDefinitionObject;
@@ -371,17 +373,7 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 
 
 
-.directive("miCityError",[function(){
 
-    var directiveDefinitionObject ={
-        restrict:"E",
-        replace : true,
-        // Las comillas deben estar precedidas de '\'.
-        template:"<span  class=\"error\" data-ng-show=\"miFormulario.city.$error.pattern\">Solo puede contener caracteres alfabéticos</span>"
-    }
-   
-    return directiveDefinitionObject;
-}])
 
 .directive("miTitulo",[function(){
    var directiveDefinitionObject ={
@@ -428,6 +420,8 @@ return directiveDefinitionObject;
 }])
 
 
+
+
 .directive("miTitulo2",[function(){
    var directiveDefinitionObject ={
         restrict:"E",
@@ -447,10 +441,26 @@ return directiveDefinitionObject;
 }])
 
 
+
+
+.directive("miCityError",[function(){
+
+    var directiveDefinitionObject ={
+        restrict:"E",
+        replace : true,
+        // Las comillas deben estar precedidas de '\'.
+        template:"<span  class=\"error\" data-ng-show=\"miFormulario.city.$error.pattern\">Solo puede contener caracteres alfabéticos</span>"
+    }
+   
+    return directiveDefinitionObject;
+}])
+
+
+
 // El nombre de la directiva será: 'prefijoNombreNombre2' y en el html tendrá la forma: "data-prefijo-nombre-nombre2"
 .directive("miValidacionEdad",[function(){
-    var a="prueba";
-   var directiveDefinitionObject ={
+    
+    var directiveDefinitionObject ={
 
         restrict:"E",
         replace : false,
@@ -462,6 +472,27 @@ return directiveDefinitionObject;
     }     
     return directiveDefinitionObject;
 }])
+
+
+// ¡¡ NO FUNCION !!
+// El nombre de la directiva será: 'prefijoNombreNombre2' y en el html tendrá la forma: "data-prefijo-nombre-nombre2"
+.directive("miValidacionAge",[function(){
+    
+   var directiveDefinitionObject ={
+
+        restrict:"E",
+        replace : true,
+        // Las comillas de dentro hay que ponerlas: \".
+        // .
+        template:"<span class=\"error\" data-ng-show=\"miFormulario.age.$error[{{campo}}]\">Edad incorrecta</span>",    
+        scope:{
+            campo:"@"
+        }
+        
+    }     
+    return directiveDefinitionObject;
+}])
+
 
 .directive("miValidacionTelefono",[function(){
     var a="prueba";

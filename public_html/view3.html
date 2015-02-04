@@ -24,14 +24,14 @@ Los datos que se muestran los toma de un archivo json que se le pasa por http.
 
           <label for="casado">Casado:</label><input id="casado" name="casado" type="checkbox" ng-model="seguro.casado" /><br>
           <label for="numHijos">Nº Hijos:</label><input id="numHijos" name="numHijos" type="text" ng-model="seguro.numHijos" /><br>
-          <label ng-hide="seguro.sexo==='H'" for="embarazada">Embarazada:</label><input ng-hide="seguro.sexo==='H'" id="embarazada" name="embarazada" type="checkbox" ng-model="seguro.embarazada" /><br>
+          <label ng-hide="seguro.sexo=== ' H ' " for="embarazada">Embarazada:</label><input ng-hide="seguro.sexo=== ' H ' " id="embarazada" name="embarazada" type="checkbox" ng-model="seguro.embarazada" /><br>
           <label for="fechaCreacion">Fecha de creaci&oacute;n:</label><input id="fechaCreacion" name="fechaCreacion" type="text" ng-model="seguro.fechaCreacion" /><br>
       </fieldset>
       <fieldset>
         <legend>Coberturas</legend>
           <label for="oftalmologia">Oftalmologia:</label><input id="oftalmologia" name="oftalmologia" type="checkbox" ng-model="seguro.coberturas.oftalmologia" /><br>
           <label for="dental">Dental:</label><input id="dental" name="dental" type="checkbox" ng-model="seguro.coberturas.dental" /><br>
-          <label ng-show="seguro.sexo==='M'" for="fecundacionInVitro">Fecundacion In Vitro:</label><input ng-show="seguro.sexo==='M'" id="fecundacionInVitro" name="fecundacionInVitro" type="checkbox" ng-model="seguro.coberturas.fecundacionInVitro" /><br>
+          <label ng-show="seguro.sexo=== ' M ' " for="fecundacionInVitro">Fecundacion In Vitro:</label><input ng-show="seguro.sexo=== ' M ' " id="fecundacionInVitro" name="fecundacionInVitro" type="checkbox" ng-model="seguro.coberturas.fecundacionInVitro" /><br>
       </fieldset>      
       <fieldset>
       <legend>Enfermedades</legend>

@@ -10,7 +10,9 @@
    <h3>Trying with the directive service:</h3>
     <p data-ng-bind="mensaje"></p></p>
    <input type="text" data-ng-model="arg"></p>
+   <!-- scope:"@"-->
    <data-mi-titulo titulo="{{arg|uppercase}}" color="azul"></data-mi-titulo></p></p>
+   <!-- scope:"="-->
    <data-mi-titulo2 texto="mensaje"></data-mi-titulo2></p></p>
    
    
@@ -114,7 +116,7 @@
     <h3>Trying with the ng-click directive and validations</h3>
     <p>Insert a new customer<p>
     <!--¡IMPORTANTE!: Poner el atributo 'novalidate' en la etiqueta 'form' para que el navegador No realice validaciones que puedan colisionar con las de angularjs-->
-    <form name="miFormulario" novalidate>
+    <form name="miFormulario" data-ng-cloak novalidate>
     <!-- Para que las validaciones funcionen es necesario que los distintos campos tengan la propiedad 'name'-->
         <p>First name: <input type="text" name="first_name" data-ng-model="newCustomer.firstName" data-ng-maxlength="20" placeholder="Nombre"  required> </p>
         <p>Last name: <input type="text" name="last_name" data-ng-model="newCustomer.lastName" ng-minlength="3" placeholder="Apellido" required> </p>
@@ -125,6 +127,10 @@
         <p>Age: <input type="number" name="age" data-ng-model="newCustomer.age" max="99" min="18" placeholder="Has de ser mayor de edad" required> </p>
         <!-- Comprobamos la validez de la direcitva 'min'-->
         <data-mi-validacion-edad></data-mi-validacion-edad>
+        
+        <!-- ¡¡NO FUNCIONA!! -->
+        <data-mi-validacion-age campo="max"></data-mi-validacion-age>
+        
         <p>Telephone: <input type="string" name="telefono" data-ng-model="newCustomer.telefono"  data-ng-pattern="pattern2" placeholder="612345678" data-ng-required="requerido"> </p>
         <data-mi-validacion-telefono></data-mi-validacion-telefono>
         <p>Email: <input type="email" name="email" data-ng-model="newCustomer.email" placeholder="micorreo@dominio.xx" data-ng-required="requerido"> </p>
