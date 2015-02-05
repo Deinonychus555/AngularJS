@@ -84,11 +84,16 @@ var auxiliar = angular.module("moduleAuxiliar", ['ngRoute']) // ¡NO se pone ';'
     // Con el servicio $routeParams accedemos a los parámetros que se pasan por la url.
     $scope.param2=$routeParams.var2;
     
-
+    $scope.selectValue=null;
     $scope.provincias=factoria_provincias.get();
      $scope.ciudades=null;
    
     $scope.insertarCiudades=function(){
+        
+        $scope.ciudades=null;
+        $scope.ciudadSeleccionada=null;
+        
+        $scope.selectValue=window.document.forms[0].elements[0].value;
         
         $scope.ciudades=$scope.provinciaSeleccionada.ciudades;
      }    
