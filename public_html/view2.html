@@ -9,10 +9,11 @@
 </p></p>
 
 <!-- La directiva ng-options permite dar valores en un '<select>'-->
-<!--ng-options=”valor as etiqueta for item in items track by claveunica”  -->
+<!--ng-options=”item as etiqueta for item in items track by select.value”  -->
+<!-- ¡¡IMPORTANTE!!: usa en 'ng-options' track by 'item' provoca un comportamiento anómalo, usar track by item.* -->
 <h3>Trying with the ng-options directive:</h3>
 <form name="form1">
-<select name="provincias"  data-ng-change="insertarCiudades()"  data-ng-model="provinciaSeleccionada" data-ng-options="provincia as provincia.nombre for provincia in provincias track by provincia.idProvincia" >
+<select name="provincias"  data-ng-change="insertarCiudades()"  data-ng-model="provinciaSeleccionada" data-ng-options="provincia as provincia.nombre for provincia in provincias track by provincia.nombre" >
   <option value="" >--Elige una provincia--</option>
 </select>
 
@@ -21,8 +22,8 @@
 </select>  
 </form>
 <div data-ng-cloak>
-    <label data-ng-hide="provinciaSeleccionada===null">La provincia seleccionada ha sido {{provinciaSeleccionada.nombre}}</label><br>
-    <label data-ng-hide="ciudadSeleccionada===null">La ciudad seleccionada ha sido {{ciudadSeleccionada.nombre}}</label>
+    <label data-ng-hide="provinciaSeleccionada==null">La provincia seleccionada ha sido {{selectedValue}}</label><br>
+    <label data-ng-hide="ciudadSeleccionada==null">La ciudad seleccionada ha sido {{ciudadSeleccionada.nombre}}</label>
 </div>
 
 
