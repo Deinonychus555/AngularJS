@@ -95,7 +95,17 @@ var auxiliar = angular.module("moduleAuxiliar", ['ngRoute']) // ¡NO se pone ';'
         
         $scope.selectValue=window.document.forms[0].elements[0].value;
         
-        $scope.ciudades=$scope.provinciaSeleccionada.ciudades;
+        //FUNCIONA:
+        //$scope.ciudades=$scope.provinciaSeleccionada.ciudades;
+        
+        // En los formularios se puede 'navegar' utilizando sus propiedades o 
+        //o con los valores de sus campos 'name' 
+        //var indice=window.document.forms[0].elements[0].selectedIndex - 1; // Existe una primera opción vacía
+        var indice=window.document.form1.provincias.selectedIndex  - 1;
+        $scope.ciudades=$scope.provincias[indice].ciudades;
+        
+        
+        
      }    
          
     $scope.provinciaSeleccionada=null;
