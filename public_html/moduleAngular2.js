@@ -86,27 +86,11 @@ var auxiliar = angular.module("moduleAuxiliar", ['ngRoute']) // ¡NO se pone ';'
     
 
     $scope.provincias=factoria_provincias.get();
-    $scope.ciudades=null;
-    $scope.selectedValue=null;
+     $scope.ciudades=null;
    
     $scope.insertarCiudades=function(){
         
-        window.document.forms[0].elements[0].reset;
-        
-        $scope.selectedValue=window.document.forms[0].elements[0].value ;
-        
-        var indice = window.document.forms[0].elements[0].selectedIndex - 1;
-        $scope.ciudades=$scope.provincias[indice].ciudades;
-        
-        
-        
-        //FUNCIONA:
-        //$scope.ciudades=$scope.provinciaSeleccionada.ciudades;
-        
-        
-        // NO FUNCIONA de la siguiente manera:
-        // !!$scope.selectedValue=window.document.f1.provincias.selectedIndex 
-        
+        $scope.ciudades=$scope.provinciaSeleccionada.ciudades;
      }    
          
     $scope.provinciaSeleccionada=null;
