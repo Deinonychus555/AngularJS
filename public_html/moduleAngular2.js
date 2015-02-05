@@ -9,11 +9,31 @@ var auxiliar = angular.module("moduleAuxiliar", ['ngRoute']) // ¡NO se pone ';'
     var provincias=[
                     {
                       idProvincia:2,
-                      nombre:"Castellón"
+                      nombre:"Jaen",
+                      ciudades:[
+                           {
+                            idCiudad:12,
+                            nombre:"Albanchez"
+                          },
+                          {
+                            idCiudad:13,
+                            nombre:"Baeza"
+                          }
+                      ]
                     },
                     {
                       idProvincia:3,
-                      nombre:"Alicante"
+                      nombre:"Alicante",
+                      ciudades:[
+                           {
+                            idCiudad:6,
+                            nombre:"Torrevieja"
+                          },
+                          {
+                            idCiudad:9,
+                            nombre:"La Mata"
+                          }
+                      ]
                     },
                     {
                       idProvincia:1,
@@ -26,6 +46,25 @@ var auxiliar = angular.module("moduleAuxiliar", ['ngRoute']) // ¡NO se pone ';'
                     {
                       idProvincia:5,
                       nombre:"Tarragona"
+                    },
+                    {
+                      idProvincia:6,
+                      nombre:"Madrid",
+                      ciudades:[
+                           {
+                            idCiudad:1,
+                            nombre:"Mostoles"
+                          },
+                          {
+                            idCiudad:7,
+                            nombre:"Alcorcon"
+                          }, 
+                          {
+                            idCiudad:5,
+                            nombre:"Getafe"
+                          },
+                          
+                      ]
                     }
                   ];
 
@@ -47,8 +86,21 @@ var auxiliar = angular.module("moduleAuxiliar", ['ngRoute']) // ¡NO se pone ';'
     
 
     $scope.provincias=factoria_provincias.get();
+     $scope.ciudades=null;
+   
+    $scope.insertarCiudades=function(){
+        
+        $scope.ciudades=$scope.provinciaSeleccionada.ciudades;
+     }    
+         
     $scope.provinciaSeleccionada=null;
-
+    $scope.ciudadSeleccionada=null;
+    
+    
+        $scope.toHome = function(){
+        // para cargar una vista
+        $location.url('/a');
+    };
 
     // La variable 'nombre_constante' es una constante definida en 'moduleAngular'-
     $scope.constante=nombre_constante;
@@ -62,10 +114,7 @@ var auxiliar = angular.module("moduleAuxiliar", ['ngRoute']) // ¡NO se pone ';'
 
     $scope.auxiliar="Estas haciendo uso del controlador de un módulo auxiliar."
 
-    $scope.toHome = function(){
-        // para cargar una vista
-        $location.url('/a');
-    };
+    
 
     //$timeout: Servicio para actualizar la vista al actualizar el modelos. 
     //fn: La función a llamar cuando acaba el timeout

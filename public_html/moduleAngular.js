@@ -192,6 +192,7 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
     $scope.value=matematicas_simples.sumar(4,4);
     
     var hasError=function(campo){
+        var tipo;
         var error=false;
         var errores=eval("$scope.miFormulario."+campo+".$error");
         for (tipo in errores){
