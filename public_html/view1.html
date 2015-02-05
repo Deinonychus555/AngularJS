@@ -118,23 +118,27 @@
     <!--¡IMPORTANTE!: Poner el atributo 'novalidate' en la etiqueta 'form' para que el navegador No realice validaciones que puedan colisionar con las de angularjs-->
     <form name="miFormulario" data-ng-cloak novalidate>
     <!-- Para que las validaciones funcionen es necesario que los distintos campos tengan la propiedad 'name'-->
-        <p>First name: <input type="text" name="first_name" data-ng-model="newCustomer.firstName" data-ng-maxlength="20" placeholder="Nombre"  required> </p>
-        <p>Last name: <input type="text" name="last_name" data-ng-model="newCustomer.lastName" ng-minlength="3" placeholder="Apellido" required> </p>
-        <p>City: <input type="text" name="city" data-ng-model="newCustomer.city" data-ng-pattern="pattern" placeholder="Ciudad" required> </p>
+        <p>First name: <input type="text" name="first_name" data-ng-blur="validarNombre()"  data-ng-model="newCustomer.firstName" data-ng-maxlength="20" placeholder="Nombre"  required> 
+        <data-mi-validacion-nombre data-ng-if="validacionNombre"></data-mi-validacion-nombre>
+        <p>Last name: <input type="text" name="last_name" data-ng-blur="validarApellido()"  data-ng-model="newCustomer.lastName" ng-minlength="3" placeholder="Apellido" required> 
+        <data-mi-validacion-apellido data-ng-if="validacionApellido"></data-mi-validacion-apellido>
+        <p>City: <input type="text" name="city" data-ng-blur="validarCiudad()" data-ng-model="newCustomer.city" data-ng-pattern="pattern" placeholder="Ciudad" required> 
         <!-- Invocamos una directiva creada por nosotros-->
-        <data-mi-city-error></data-mi-city-error>
+        <data-mi-validacion-ciudad data-ng-if="validacionCiudad"></data-mi-validacion-ciudad>
         <!--Las directivas 'min' y 'max' se ponen sin el prefijo 'ng-'-->
-        <p>Age: <input type="number" name="age" data-ng-model="newCustomer.age" max="99" min="18" placeholder="Has de ser mayor de edad" required> </p>
+        <p>Age: <input type="number" name="age" data-ng-blur="validarEdad()" data-ng-model="newCustomer.age" max="99" min="18" placeholder="Has de ser mayor de edad" required> 
         <!-- Comprobamos la validez de la direcitva 'min'-->
-        <data-mi-validacion-edad></data-mi-validacion-edad>
+        <data-mi-validacion-edad data-ng-if="validacionEdad"></data-mi-validacion-edad>
         
         <!-- ¡¡NO FUNCIONA!! -->
         <data-mi-validacion-age campo="max"></data-mi-validacion-age>
         
-        <p>Telephone: <input type="string" name="telefono" data-ng-model="newCustomer.telefono"  data-ng-pattern="pattern2" placeholder="612345678" data-ng-required="requerido"> </p>
+        <p>Telephone: <input type="string" name="telephone" data-ng-blur="validarTelefono()" data-ng-model="newCustomer.telefono"  data-ng-pattern="pattern2" placeholder="612345678" data-ng-required="requerido"> 
         <data-mi-validacion-telefono></data-mi-validacion-telefono>
-        <p>Email: <input type="email" name="email" data-ng-model="newCustomer.email" placeholder="micorreo@dominio.xx" data-ng-required="requerido"> </p>
-        <p>Url: <input type="url" name="url" data-ng-model="newCustomer.url" placeholder="http://www.direccion.xxx"  data-ng-required="requerido"> </p>
+        <p>Email: <input type="email" name="email" data-ng-blur="validarEmail()"   data-ng-model="newCustomer.email" placeholder="micorreo@dominio.xx" data-ng-required="requerido"> 
+        <data-mi-validacion-email data-ng-if="validacionEmail" ></data-mi-validacion-email>
+        <p>Url: <input type="url" name="url" data-ng-blur="validarUrl()"  data-ng-model="newCustomer.url" placeholder="http://www.direccion.xxx"  data-ng-required="requerido"> 
+        <data-mi-validacion-url data-ng-if="validacionUrl"></data-mi-validacion-url>
     </form>
     <!-- Con la directiva ng-click manejamos eventos de clic llamando a una función del scope-->
     <!-- El botón estará inactivo si el formulario es inválido -->
