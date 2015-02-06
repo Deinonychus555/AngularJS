@@ -1,5 +1,5 @@
 
-// ¡IMPORTANTE!: Todas las variables pertenecientes del scope deben declararse con el prefijo '$scope.'.
+// ¡¡IMPORTANTE!!: Todas las variables pertenecientes del scope deben declararse con el prefijo '$scope.'.
      
      
      
@@ -27,7 +27,7 @@ function Rectangulo(tamanyoInicial) {
 // Configuración de un módulo.
 // La librería 'ngRoute' es para añadir rutas al $routeProvider
 // La librería 'ngSanitize' es necesaria para la directiva 'ng-bind-html'.
-//¡¡ Al añadir modulos y librerías, asegurarse que se ha insertado el módulo en el html principal!! -->
+//¡¡ IMPORTANTE !!: Al añadir modulos y librerías, asegurarse que se ha insertado el módulo en el html principal -->
 // angular.module("nombre_del_modulo", ['ngRoute', "modulo3", dependenia1", "dependencia2","..."])
 var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar','moduleSeguro','modulePassword']) // ¡NO se pone ';' al final!
 
@@ -158,7 +158,7 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 // Configuración de un controlador.
 // .controller("nombre_del_controlador", [..., function($scope,...){} ])
 // Se pasa al array lo mismo que se le pasa a la función y en el mismo orden.
-// Pasaremos como argumentos de la función todas las variables de entorno que vayamos
+// ¡¡ IMPORTANTE !!:Pasaremos como argumentos de la función todas las variables de entorno que vayamos
 //a utilizar ($variable)
 // $scope: servicio donde inyectaremos nuestras variables y métodos.
 // $location: para redireccionar vis.tas
@@ -196,16 +196,14 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 // ====================================================================================================== -->
 // ** FORMULARIO CON VALIDACIONES Y ETIQUETAS NUEVAS CREADAS CON EL SERVICIO '.directive'     
   
-    // Mejoras:
-    // - Añadir botón de reseteo de todos los campo.
-    // - Una vez rellenado un campo correctamente deshabilitarlo.
-    
-    $scope.newCustomer={firstName:null,lastName:null,age:null,city:null,telephone:null,email:null,url:null,sexo:""};
+  
+    $scope.newCustomer={firstName:"",lastName:"",age:"",city:"",telephone:"",email:"",url:"",sexo:"",embarazada:""};
     
     // <select name="reset" ng-options="o as o for o in customerCampos">
     $scope.customerCampos=Object.keys($scope.newCustomer);
     
-    // <select name="reset" ng-model="resetOption">
+    // <button name="resetAll" data-ng-click="reset()">
+    // <select name="reset" ng-model="resetOption" data-ng-change="reset()">
     $scope.resetOption="all";
     
     // Se usa para la directiva 'ng-required', para saber si dicho campo es requerido o no.
@@ -244,24 +242,30 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
         
         if ($scope.resetOption==="all"){
             
-            window.document.miFormulario.firstName.disabled=false;
-            window.document.miFormulario.lastName.disabled=false;
-            window.document.miFormulario.age.disabled=false;
-            window.document.miFormulario.city.disabled=false;
-            window.document.miFormulario.telephone.disabled=false;
-            window.document.miFormulario.email.disabled=false;
-            window.document.miFormulario.url.disabled=false;
+           for(campo in $scope.newCustomer){
 
-            for(campo in $scope.newCustomer){
-
-                $scope.newCustomer[campo]=null;
+                // ¡¡ IMPORTANTE !!: Antes de borrar los valores de los campos hay que habilitarlos.
+                //eval("window.document.miFormulario."+campo+".disabled=false");
+                
+                
+                // ¡¡ IMPORTANTE !!: Al acceder al DOM, parece que se puede acceder directamente
+                //a elementos con directivas del tipo 'ng-hide="true"'. 
+                //if (campo!=="embarazada"){ // No haría falta.
+                    // <input data-ng-if="newCustomer.sexo==='M'" name="embarazada" ng-model="newCustomer.embarazada"/>
+                    window.document.miFormulario[campo].disabled=false; // Habilitamos el campo.
+                //}    
+                
+                $scope.newCustomer[campo]=""; // Borramos el valor del campo.
             }
         }    
         else{
             //window.alert("$scope.newCustomer["+$scope.resetOption+"]=null");
             //eval("window.alert(\"$scope.newCustomer["+$scope.resetOption+"]=null\")");
             eval("window.document.miFormulario."+$scope.resetOption+".disabled=false");
-            eval("$scope.newCustomer."+$scope.resetOption+"=null");
+            eval("$scope.newCustomer."+$scope.resetOption+"=\"\"");
+            if ($scope.resetOption==="sexo"){
+                $scope.newCustomer.embarazada="";
+            }
             $scope.resetOption="all";
         }    
     }
@@ -323,7 +327,9 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
         }
         else{
             $scope.validacionTelefono=false;
-            window.document.miFormulario.telephone.disabled=true;
+            if($scope.newCustomer.telephone!==""){ // Para que no se deshabilite si no introduce nada el usuario.
+                window.document.miFormulario.telephone.disabled=true;
+            }    
         }    
     }
     
@@ -334,8 +340,7 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
         }
         else{
             $scope.validacionEmail=false;
-            window.alert($scope.newCustomer.email);
-            if(($scope.newCustomer.email!=null) &&( $scope.newCustomer.email!=="")){
+            if($scope.newCustomer.email!==""){ // Para que no se deshabilite si no introduce nada el usuario.
                  window.document.miFormulario.email.disabled=true;
             }
         }    
@@ -348,7 +353,9 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
         }
         else{
             $scope.validacionUrl=false;
-            window.document.miFormulario.url.disabled=true;
+            if($scope.newCustomer.email!==""){// Para que no se deshabilite si no introduce nada el usuario.
+                window.document.miFormulario.url.disabled=true;
+            }    
         }    
     }
     
@@ -512,6 +519,10 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 }]) // ¡NO se pone ';' al final!
 
 
+
+// ====================================================================================================== -->
+// ** ETIQUETAS NUEVAS CREADAS CON EL SERVICIO '.directive'    
+
 // Con el servicio 'directive' creamos nuestras propias etiquetas o atributos.
 // El nombre de la directiva será: 'prefijoNombreNombre2' y en el html tendrá la forma: "data-prefijo-nombre-nombre2"
 .directive("miFecha",[function(){
@@ -606,6 +617,9 @@ return directiveDefinitionObject;
    
     return directiveDefinitionObject;
 }])
+// ====================================================================================================== -->
+
+
 
 // ====================================================================================================== -->
 // ** FORMULARIO CON VALIDACIONES Y ETIQUETAS NUEVAS CREADAS CON EL SERVICIO '.directive' 
