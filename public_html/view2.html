@@ -1,22 +1,26 @@
 <div class="container2" >
 <div data-ng-show="param2!=null">Parametro: {{param2}}</div>
 
-</p></p>
+<br><br>
 <button data-ng-click="toHome()">Return to index</button>
-</p></p>
+<br><br>
 
 <h1>View 2</h1>
-</p></p>
+<br><br>
+
+
+<!--==========================================================================================-->
+<!-- ** MENÚ SELECT QUE DEPENDE DE OTRO MENÚ SELECT -->
 
 <!-- La directiva ng-options permite dar valores en un '<select>'-->
 <!--ng-options=”valor as etiqueta for item in items track by claveunica”  -->
 <h3>Trying with the ng-options directive:</h3>
-<form name="form1">
-<select name="provincias"  data-ng-change="insertarCiudades()"  data-ng-model="provinciaSeleccionada" data-ng-options="provincia as provincia.nombre for provincia in provincias track by provincia.nombre" >
+<form name="fProvincias">
+<select name="sProvincias"  data-ng-change="insertarCiudades()"  data-ng-model="provinciaSeleccionada" data-ng-options="provincia as provincia.nombre for provincia in provincias track by provincia.nombre" >
   <option value="" >--Elige una provincia--</option>
 </select>
 
-<select name="ciudades"  data-ng- data-ng-model="ciudadSeleccionada" data-ng-options="ciudad as ciudad.nombre for ciudad in ciudades track by ciudad.idCiudad" >
+<select name="sCiudades"  data-ng- data-ng-model="ciudadSeleccionada" data-ng-options="ciudad as ciudad.nombre for ciudad in ciudades track by ciudad.idCiudad" >
   <option value="" >--Elige una ciudad--</option>
 </select>  
 </form>
@@ -24,7 +28,7 @@
     <label data-ng-hide="provinciaSeleccionada===null">La provincia seleccionada ha sido {{selectValue}}</label><br>
     <label data-ng-hide="ciudadSeleccionada===null">La ciudad seleccionada ha sido {{ciudadSeleccionada.nombre}}</label>
 </div>
-
+<!--==========================================================================================-->
 
 
 <!-- Con la directiva ng-if se inserta o no una etiqueta en el DOM.-->
@@ -65,31 +69,31 @@
 
 
 <h3>Trying with the $timeout service:</h3>
-&iquest;Se ha producido el evento? {{producidoEvento}}</p></p>
+&iquest;Se ha producido el evento? {{producidoEvento}}<br><br>
 
 
 
 <h3>Trying with constant:</h3>
-El valor de la constante es: {{constante}}</p></p>
+El valor de la constante es: {{constante}}<br><br>
 
 
 
 <h3>Trying with value:</h3>
-El resultado de la resta es: {{value}}</p></p>
+El resultado de la resta es: {{value}}<br><br>
 
 
 
 <h3>Trying with service:</h3>
-{{service}}</p></p>
+{{service}}<br><br>
 
 
 <h3>Trying with filters</h3>
-Importe formateado:{{importeFormateado}}<br></p></p>
+Importe formateado:{{importeFormateado}}<br><br><br>
 
 
-<input type=“date” date-picker="yyyy-MM-dd" data-ng-model="fecha">
+<input type="date" date-picker="yyyy-MM-dd" data-ng-model="fecha">
 La fecha que has elegido es: {{fecha}}<br>
-Es posible que debido al nabegador no se visualice el calendario. 
+Es posible que debido al navegador no se visualice el calendario. 
 
 
 </div>

@@ -84,33 +84,47 @@ var auxiliar = angular.module("moduleAuxiliar", ['ngRoute']) // ¡NO se pone ';'
     // Con el servicio $routeParams accedemos a los parámetros que se pasan por la url.
     $scope.param2=$routeParams.var2;
     
-    $scope.selectValue=null;
+    
+    //=========================================================================================
+    // ** MENÚ SELECT QUE DEPENDE DE OTRO MENÚ SELECT
+    
+    // <select name="sProvincias" ng-options:"...track by provincias.nombre">
+    $scope.selectValue=null; 
+    
+    // <select name="sProvincias" ng-options:"...for provincia in provincias...">
     $scope.provincias=factoria_provincias.get();
-     $scope.ciudades=null;
+    // <select name="sProvincias" ng-options:"...for ciudad in ciudades...">
+    $scope.ciudades=null;
+    
+    // <select name="sProvincias" ng-model="provinciaSeleccionada">     
+    $scope.provinciaSeleccionada=null;
+    // <select name="sCiudades" ng-model="ciudadSeleccionada"> 
+    $scope.ciudadSeleccionada=null;
+    
    
+    // <select name="provincias" ng-change="insertarCiudades()">
     $scope.insertarCiudades=function(){
         
         $scope.ciudades=null;
         $scope.ciudadSeleccionada=null;
         
+        $scope.ciudades=$scope.provinciaSeleccionada.ciudades;
+        
+        // En los formularios se puede 'navegar' utilizando sus propiedades  
+        //o con los valores de sus campos 'name'. 
+        
         $scope.selectValue=window.document.forms[0].elements[0].value;
         
-        //FUNCIONA:
-        //$scope.ciudades=$scope.provinciaSeleccionada.ciudades;
-        
-        // En los formularios se puede 'navegar' utilizando sus propiedades o 
-        //o con los valores de sus campos 'name' 
         //var indice=window.document.forms[0].elements[0].selectedIndex - 1; // Existe una primera opción vacía
-        var indice=window.document.form1.provincias.selectedIndex  - 1;
+       
+        /* // Funciona:
+        var indice=window.document.fProvincias.sProvincias.selectedIndex - 1;
         $scope.ciudades=$scope.provincias[indice].ciudades;
-        
+        */
         
         
      }    
-         
-    $scope.provinciaSeleccionada=null;
-    $scope.ciudadSeleccionada=null;
-    
+    //=========================================================================================
     
         $scope.toHome = function(){
         // para cargar una vista

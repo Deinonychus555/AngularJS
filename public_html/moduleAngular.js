@@ -191,18 +191,85 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
     // Función definida en el servicio 'value'.
     $scope.value=matematicas_simples.sumar(4,4);
     
+     $scope.customers=factoryAngular.getCustomers();
+     
+// ====================================================================================================== -->
+// ** FORMULARIO CON VALIDACIONES Y ETIQUETAS NUEVAS CREADAS CON EL SERVICIO '.directive'     
+  
+    // Mejoras:
+    // - Añadir botón de reseteo de todos los campo.
+    // - Una vez rellenado un campo correctamente deshabilitarlo.
+    
+    $scope.newCustomer={firstName:null,lastName:null,age:null,city:null,telephone:null,email:null,url:null,sexo:""};
+    
+    // <select name="reset" ng-options="o as o for o in customerCampos">
+    $scope.customerCampos=Object.keys($scope.newCustomer);
+    
+    // <select name="reset" ng-model="resetOption">
+    $scope.resetOption="all";
+    
+    // Se usa para la directiva 'ng-required', para saber si dicho campo es requerido o no.
+    // <input type="string" name="telephone" data-ng-required="requerido"> 
+    $scope.requerido=false;
+
+    // Se usa para la directiva 'ng-pattern', para la validación de un formulario.
+    // Hay que poner las barras al principio y al final, SIN COMILLAS
+    // Si quieres que la expresión se aplique a todo el valor pon “^” al principio y “$” al final
+    
+    // <input type="string" name="city" ng-pattern="pattern"> 
+    $scope.pattern=/^[a-zA-Z]*$/;
+    // <input type="string" name="telephone" ng-pattern="pattern2"> 
+    $scope.pattern2=/^[0-9]{9}$/;   
+    
+    // Dado un campo de un formulario devuelve si hay o no algún error de validación en el valor introducido.
+    // hasError(String) -> Boolean
     var hasError=function(campo){
+        
         var tipo;
         var error=false;
+        
         var errores=eval("$scope.miFormulario."+campo+".$error");
+        
         for (tipo in errores){
+           
             error+=errores[tipo];
         }
         
         return error;
     }
     
-    // Para los data-mi-validacion-*
+    // <button name="resetAll" data-ng-clic="reset()">
+    // <select name="reset" data-ng-model="reset" data-ng-change="reset()">
+    $scope.reset=function(){
+        
+        if ($scope.resetOption==="all"){
+            
+            window.document.miFormulario.firstName.disabled=false;
+            window.document.miFormulario.lastName.disabled=false;
+            window.document.miFormulario.age.disabled=false;
+            window.document.miFormulario.city.disabled=false;
+            window.document.miFormulario.telephone.disabled=false;
+            window.document.miFormulario.email.disabled=false;
+            window.document.miFormulario.url.disabled=false;
+
+            for(campo in $scope.newCustomer){
+
+                $scope.newCustomer[campo]=null;
+            }
+        }    
+        else{
+            //window.alert("$scope.newCustomer["+$scope.resetOption+"]=null");
+            //eval("window.alert(\"$scope.newCustomer["+$scope.resetOption+"]=null\")");
+            eval("window.document.miFormulario."+$scope.resetOption+".disabled=false");
+            eval("$scope.newCustomer."+$scope.resetOption+"=null");
+            $scope.resetOption="all";
+        }    
+    }
+    
+    
+    // <data-mi-validacion-* data-ng-if="validacion*">
+    // <input type="" name="" data-ng-blur="validar*()">
+    
     $scope.validacionEdad=false;
     $scope.validarEdad=function(){
         if(hasError("age")){
@@ -210,28 +277,31 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
         }
         else{
             $scope.validacionEdad=false;
+            window.document.miFormulario.age.disabled=true;
         }    
     }
     
-    
-    
+        
     $scope.validacionNombre=false;
     $scope.validarNombre=function(){
-        if(hasError("first_name")){
+        if(hasError("firstName")){
             $scope.validacionNombre=true;
         }
         else{
             $scope.validacionNombre=false;
+            window.document.miFormulario.firstName.disabled=true;
+            
         }    
     }
     
     $scope.validacionApellido=false;
     $scope.validarApellido=function(){
-        if(hasError("last_name")){
+        if(hasError("lastName")){
             $scope.validacionApellido=true;
         }
         else{
             $scope.validacionApellido=false;
+            window.document.miFormulario.lastName.disabled=true;
         }    
     }
     
@@ -242,6 +312,7 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
         }
         else{
             $scope.validacionCiudad=false;
+            window.document.miFormulario.city.disabled=true;
         }    
     }
     
@@ -252,6 +323,7 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
         }
         else{
             $scope.validacionTelefono=false;
+            window.document.miFormulario.telephone.disabled=true;
         }    
     }
     
@@ -262,6 +334,10 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
         }
         else{
             $scope.validacionEmail=false;
+            window.alert($scope.newCustomer.email);
+            if(($scope.newCustomer.email!=null) &&( $scope.newCustomer.email!=="")){
+                 window.document.miFormulario.email.disabled=true;
+            }
         }    
     }
 
@@ -272,27 +348,22 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
         }
         else{
             $scope.validacionUrl=false;
+            window.document.miFormulario.url.disabled=true;
         }    
     }
     
     
-    // Se usa para la directiva 'ng-required', para la validación de un formulario.
-    $scope.requerido=false;
-
-    // Se usa para la directiva 'ng-pattern', para la validación de un formulario.
-    // Hay que poner las barras al principio y al final, SIN COMILLAS
-    // Si quieres que la expresión se aplique a todo el valor pon “^” al principio y “$” al final
-    
-    $scope.pattern=/^[a-zA-Z]*$/;
-    $scope.pattern2=/^[0-9]{9}$/;
-
-    $scope.customers=factoryAngular.getCustomers();
-
+    // <button name="addCustomer" ng-click="addCustomer()" ng-disabled="miFormulario.$invalid">
     $scope.addCustomer=function(){
         
+        
+        // ¡¡ IMPORTANTE !!: Comprobar antes de introducir los datos que el formulario es correcto.
         if ($scope.miFormulario.$valid){
             factoryAngular.addCustomer($scope.newCustomer.firstName, $scope.newCustomer.lastName, $scope.newCustomer.city, $scope.newCustomer.age);
         }  
+        
+        // Los mensaje de errores ya se muetran en <data-mi-validacion*>
+        /*
         else if ($scope.miFormulario.email.$error.email) {
             window.alert("Email incorrecto");
         }
@@ -311,7 +382,16 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
         else if ($scope.miFormulario.age.$error.min) {
             window.alert("Tiene que tener 18 años");
         }
+        */
     };
+    
+    
+
+// ====================================================================================================== -->
+   
+   
+
+    
  
     // Con el servicio $routeParams accedemos a los parámetros que se pasan por la url.
     $scope.param2=$routeParams.var2;
@@ -527,33 +607,39 @@ return directiveDefinitionObject;
     return directiveDefinitionObject;
 }])
 
+// ====================================================================================================== -->
+// ** FORMULARIO CON VALIDACIONES Y ETIQUETAS NUEVAS CREADAS CON EL SERVICIO '.directive' 
 
-
+//<data-ng-mi-validacion-nombre data-ng-if="validacionNombre">
+// El nombre de la directiva será: 'prefijoNombreNombre2' y en el html tendrá la forma: "data-prefijo-nombre-nombre2"
 .directive("miValidacionNombre",[function(){
 
     var directiveDefinitionObject ={
         restrict:"E",
         replace : true,
         // Las comillas deben estar precedidas de '\'.
-        template:"<span  class=\"error\" data-ng-show=\"miFormulario.first_name.$error.maxlength\">Nombre demasiado largo</span>"
+        template:"<span  class=\"error\" data-ng-show=\"miFormulario.firstName.$error.maxlength\">Nombre demasiado largo</span>"
     }
    
     return directiveDefinitionObject;
 }])
 
 
+//<data-ng-mi-validacion-apellido data-ng-if="validacionApellido">
 .directive("miValidacionApellido",[function(){
 
     var directiveDefinitionObject ={
         restrict:"E",
         replace : true,
         // Las comillas deben estar precedidas de '\'.
-        template:"<span  class=\"error\" data-ng-show=\"miFormulario.last_name.$error.minlength\">Apellido demasiado corto</span>"
+        template:"<span  class=\"error\" data-ng-show=\"miFormulario.lastName.$error.minlength\">Apellido demasiado corto</span>"
     }
    
     return directiveDefinitionObject;
 }])
 
+
+//<data-ng-mi-validacion-ciudad data-ng-if="validacionCiudad">
 .directive("miValidacionCiudad",[function(){
 
     var directiveDefinitionObject ={
@@ -567,37 +653,7 @@ return directiveDefinitionObject;
 }])
 
 
-
-
-
-.directive("miValidacionEmail",[function(){
-
-    var directiveDefinitionObject ={
-        restrict:"E",
-        replace : true,
-        // Las comillas deben estar precedidas de '\'.
-        template:"<span  class=\"error\" data-ng-show=\"miFormulario.email.$error.email\">Email no válido</span>"
-    }
-   
-    return directiveDefinitionObject;
-}])
-
-
-.directive("miValidacionUrl",[function(){
-
-    var directiveDefinitionObject ={
-        restrict:"E",
-        replace : true,
-        // Las comillas deben estar precedidas de '\'.
-        template:"<span  class=\"error\" data-ng-show=\"miFormulario.url.$error.url\">Url no válido</span>"
-    }
-   
-    return directiveDefinitionObject;
-}])
-
-
-
-// El nombre de la directiva será: 'prefijoNombreNombre2' y en el html tendrá la forma: "data-prefijo-nombre-nombre2"
+//<data-ng-mi-validacion-edad data-ng-if="validacionEdad">
 .directive("miValidacionEdad",[function(){
     
     var directiveDefinitionObject ={
@@ -613,6 +669,51 @@ return directiveDefinitionObject;
     return directiveDefinitionObject;
 }])
 
+//<data-ng-mi-validacion-telefono data-ng-if="validacionTelefono">
+.directive("miValidacionTelefono",[function(){
+    
+   var directiveDefinitionObject ={
+
+        restrict:"E",
+        replace : true,
+        // Las comillas de dentro hay que ponerlas: \".
+        //template:"<span class=error data-ng-show=miFormulario.age.$error.max>Edad inválida XD</span>",
+        template:"<span class=\"error\" data-ng-show=\"miFormulario.telephone.$error.pattern\">Número de teléfono incorrecto</span>",
+       
+        
+    }     
+    return directiveDefinitionObject;
+}])
+
+//<data-ng-mi-validacion-email data-ng-if="validacionEmail">
+.directive("miValidacionEmail",[function(){
+
+    var directiveDefinitionObject ={
+        restrict:"E",
+        replace : true,
+        // Las comillas deben estar precedidas de '\'.
+        template:"<span  class=\"error\" data-ng-show=\"miFormulario.email.$error.email\">Email no válido</span>"
+    }
+   
+    return directiveDefinitionObject;
+}])
+
+//<data-ng-mi-validacion-url data-ng-if="validacionUrl">
+.directive("miValidacionUrl",[function(){
+
+    var directiveDefinitionObject ={
+        restrict:"E",
+        replace : true,
+        // Las comillas deben estar precedidas de '\'.
+        template:"<span  class=\"error\" data-ng-show=\"miFormulario.url.$error.url\">Url no válido</span>"
+    }
+   
+    return directiveDefinitionObject;
+}])
+
+
+
+/*
 
 // ¡¡ NO FUNCIONA !!
 .directive("miValidacionAge",[function(){
@@ -635,20 +736,7 @@ return directiveDefinitionObject;
     return directiveDefinitionObject;
 }])
 
-
-.directive("miValidacionTelefono",[function(){
-    
-   var directiveDefinitionObject ={
-
-        restrict:"E",
-        replace : true,
-        // Las comillas de dentro hay que ponerlas: \".
-        //template:"<span class=error data-ng-show=miFormulario.age.$error.max>Edad inválida XD</span>",
-        template:"<span class=\"error\" data-ng-show=\"miFormulario.telephone.$error.pattern\">Número de teléfono incorrecto</span>",
-       
-        
-    }     
-    return directiveDefinitionObject;
-}])
+*/
 
 
+ //====================================================================================================== -->
