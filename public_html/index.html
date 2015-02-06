@@ -1,7 +1,7 @@
 <!DOCTYPE html><!-- Pulsar Alt+6 para ejecutar en el navegador-->
 
 <!-- Conla directiva ng-app cargamos el módulo que queramos utilizar-->
-<!-- ¡IMPORTANTE!: Solo se puede cargar un módulo-->
+<!-- ¡¡ IMPORTANTE !!: Solo se puede cargar un módulo-->
 <!-- Si queremos hacer uso de varios módulos lo haremos mediante dependencia -->
 <html html lang="es" data-ng-app="moduleAngular">
 
@@ -24,6 +24,7 @@
 <!-- Cuidado con la ruta, va entre comillas dobles y luego comillas simples: "'archivo.html'"-->
 
 <div ng-bind-html="texto_con_etiquetas"></div><br>
+<!-- .directive("miFecha", -->
 <data-mi-fecha></data-mi-fecha><br>
 
 
@@ -90,7 +91,11 @@
 <script src="moduleAngular3.js"></script>
 <script src="moduleAngular4.js"></script>
 
-<!-- ¡IMPORTANTE!: Solo se puede cargar un módulo-->
+<!-- JQUERY -->
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+<!-- ¡¡IMPORTANTE!!: Solo se puede cargar un módulo-->
 
 <data-ng-include src=" ' footer.html ' "></data-ng-include></p>
 </body>

@@ -1,3 +1,5 @@
+// templateUrl: 'view1.html' && (*)
+
 
 // ¡¡IMPORTANTE!!: Todas las variables pertenecientes del scope deben declararse con el prefijo '$scope.'.
      
@@ -48,6 +50,9 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 .value("ref2","https://docs.angularjs.org/api")
 
 
+//--------------------------------------------------------------------------------------------------------
+// @@ run
+// -------------------------------------------------------------------------------------------------------
 
    
 
@@ -72,6 +77,14 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
   $rootScope.fechaFormateada=filtroDate(new Date(),'yyyy MMM dd ');
 }])
 
+//--------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------
+
+
+
+//--------------------------------------------------------------------------------------------------------
+// @@ filter
+// -------------------------------------------------------------------------------------------------------
 
 // El servicio 'filter' permite crear un filtro
 // input es lo que recibe el filtro
@@ -88,6 +101,13 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
      };
 })
 
+//--------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------
+
+
+//--------------------------------------------------------------------------------------------------------
+// @@ factory
+// -------------------------------------------------------------------------------------------------------
 
 
 // Configuración de una factoría.
@@ -125,6 +145,11 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
                                 return factory;                
                             }) // ¡NO se pone ';' al final!
 
+//--------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------
+
+
+
 // Con el servicio 'constant' creamos una constante.
 // El servicio constant se pueden inyectar en bloques config y en provider.
 //.constant("nombre_variable_creada",valor)
@@ -155,6 +180,12 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 .service("rectangulo",['tamanyoInicialRectangulo',Rectangulo])
 
 
+
+//--------------------------------------------------------------------------------------------------------
+// @@ controller
+// -------------------------------------------------------------------------------------------------------
+
+
 // Configuración de un controlador.
 // .controller("nombre_del_controlador", [..., function($scope,...){} ])
 // Se pasa al array lo mismo que se le pasa a la función y en el mismo orden.
@@ -168,10 +199,11 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 .controller("controllerAngular",['$scope',"$routeParams",'$location','$log','$http','$timeout','factoryAngular','nombre_constante','matematicas_simples','rectangulo',
     function($scope,$routeParams,$location,$log,$http,$timeout,factoryAngular,nombre_constante,matematicas_simples,rectangulo) {
 
- $scope.nombre_imagen2="AngularJS-large.png";
-     
-    // Todas las variables iran con el prefijo '$scope.'
+// ¡¡ IMPORTANTE !!:Todas las variables iran con el prefijo '$scope.'
 
+    // <img ng-src="http://2.bp.blogspot.com/-cFDEu1MlBoQ/VASmJppOkkI/AAAAAAAACtM/bSWD-rBq9pA/s1600/{{nombre_imagen2}}">
+    $scope.nombre_imagen2="AngularJS-large.png";
+     
     $scope.texto={prueba:"Mensaje de prueba"};
    
    // Para hacer pruebas con el servicio 'service'.
@@ -181,6 +213,13 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 
     // Para hacer pruebas con el servicio 'directive'.
     $scope.mensaje= "Mensaje desde el scope del controlador";
+    
+    // <data-mi-titulo id="titulo1" titulo="{{arg|uppercase}}" mostrarAviso="show(arg)">
+    // .directive("miTitulo",[function(){...}]);
+    
+    $scope.show=function(){
+        window.alert("&");
+    }
 
     // ng-bin-html
     $scope.texto_con_etiquetas= "Hola <strong>Mundo</strong>";
@@ -191,7 +230,10 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
     // Función definida en el servicio 'value'.
     $scope.value=matematicas_simples.sumar(4,4);
     
-     $scope.customers=factoryAngular.getCustomers();
+    $scope.customers=factoryAngular.getCustomers();
+     
+     
+     
      
 // ====================================================================================================== -->
 // ** FORMULARIO CON VALIDACIONES Y ETIQUETAS NUEVAS CREADAS CON EL SERVICIO '.directive'     
@@ -248,31 +290,41 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
                 //eval("window.document.miFormulario."+campo+".disabled=false");
                 
                 
-                // ¡¡ IMPORTANTE !!: Al acceder al DOM, parece que se puede acceder directamente
-                //a elementos con directivas del tipo 'ng-hide="true"'. 
-                //if (campo!=="embarazada"){ // No haría falta.
-                    // <input data-ng-if="newCustomer.sexo==='M'" name="embarazada" ng-model="newCustomer.embarazada"/>
-                    window.document.miFormulario[campo].disabled=false; // Habilitamos el campo.
-                //}    
+                // ¡¡ IMPORTANTE !!: Al acceder al DOM, NO se puede acceder directamente
+                //a elementos con directivas del tipo 'ng-if="false"', porque puede que no
+                //estén insertadas en el DOM. Con directivas de tipo 'ng-show' y 'ng-hide'
+                //no habría problema. 
                 
-                $scope.newCustomer[campo]=""; // Borramos el valor del campo.
+                //if (campo!=="embarazada"){ // No haría falta en este caso porque usamos 'ng-show'.
+                  
+                    // <input data-ng-if="newCustomer.sexo==='M'" name="embarazada" ng-model="newCustomer.embarazada"/>
+                    // 1º Habilitamos el campo.
+                    window.document.miFormulario[campo].disabled=false; // 1º Habilitamos el campo.
+                
+                //}    
+                //2º Borramos el valor del campo.
+                $scope.newCustomer[campo]=""; 
             }
         }    
         else{
-            //window.alert("$scope.newCustomer["+$scope.resetOption+"]=null");
-            //eval("window.alert(\"$scope.newCustomer["+$scope.resetOption+"]=null\")");
+            // <input data-ng-if="newCustomer.sexo==='M'" name="embarazada" ng-model="newCustomer.embarazada"/>
+            // 1º Habilitamos el campo.
             eval("window.document.miFormulario."+$scope.resetOption+".disabled=false");
+            
+            //2º Borramos el valor del campo.
             eval("$scope.newCustomer."+$scope.resetOption+"=\"\"");
+            
             if ($scope.resetOption==="sexo"){
                 $scope.newCustomer.embarazada="";
             }
+            
             $scope.resetOption="all";
         }    
     }
     
     
-    // <data-mi-validacion-* data-ng-if="validacion*">
-    // <input type="" name="" data-ng-blur="validar*()">
+    // <data-mi-validacion-* data-ng-if="validaci
+    // <input type="" name="" data-ng-blur=on*">"validar*()">
     
     $scope.validacionEdad=false;
     $scope.validarEdad=function(){
@@ -397,10 +449,7 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 // ====================================================================================================== -->
    
    
-
-    
- 
-    // Con el servicio $routeParams accedemos a los parámetros que se pasan por la url.
+ // Con el servicio $routeParams accedemos a los parámetros que se pasan por la url.
     $scope.param2=$routeParams.var2;
     $scope.param1=$routeParams.var1;
     $scope.param11=$routeParams.var11;
@@ -476,6 +525,14 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 
  }]) // ¡NO se pone ';' al final!  
 
+//--------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------
+
+
+
+//--------------------------------------------------------------------------------------------------------
+// @@ config
+// -------------------------------------------------------------------------------------------------------
 
 // Un bloque 'config' es una función que definimos en nuestro código, que se ejecutará 
 //al iniciar un programa en AngularJS para configurar un provider.
@@ -519,9 +576,28 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
 }]) // ¡NO se pone ';' al final!
 
 
+//--------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------
+
+
+
+//--------------------------------------------------------------------------------------------------------
+// @@ directive
+// -------------------------------------------------------------------------------------------------------
+
+// ¡¡ IMPORTANTE !!: En el el servicio directive cuidado con la propiedad 'replace'. Si 'replace' vale true
+// el valor de 'template' solo podrá contener una etiqueta, si por el contrario el valor de 'replace' vale
+// false, el valor de 'template' podrá contener varias etiquetas. Se recomienda omitir la propiedad 'replace'
+// para evitar este error.
+ 
+ 
 
 // ====================================================================================================== -->
-// ** ETIQUETAS NUEVAS CREADAS CON EL SERVICIO '.directive'    
+// ** ETIQUETAS NUEVAS CREADAS CON EL SERVICIO '.directive'
+
+// view1.html
+
+
 
 // Con el servicio 'directive' creamos nuestras propias etiquetas o atributos.
 // El nombre de la directiva será: 'prefijoNombreNombre2' y en el html tendrá la forma: "data-prefijo-nombre-nombre2"
@@ -536,35 +612,43 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
         // Si vale “A” solo podrá usarse como atributo
         // Si vale “EA” o “AE” se podrá usar como elemento y como atributo. Este es el funcionamiento por defecto si no se pone nada en la propiedad restrict.
     // replace : Si vale false el contenido del template se añadirá dentro del tag de la propia directiva. Pero si vale true se quitará el tag de la directiva y solo estará el contenido del template.
-
-  var directiveDefinitionObject ={
+    // Si vale true el template NO podrá contener más de una etiqueta.
+  var directive ={
         restrict:"E",
-        replace : false,
+        replace : false, // Porque en la propiedad 'template' vamos a poner más de una etiqueta.
         // Las comillas deben estar precedidas de '\'.
         template:"<div >Fecha formateada: {{date | dateFormat}}</div><br>",
         scope:false // indicamos que el scope es el mismo que el del controlador
        
     }
    
-    return directiveDefinitionObject;
+    return directive;
 }])
 
 
 
 
-
+// <data-mi-titulo titulo="{{arg|uppercase}}" color="azul" mostrarAviso="show(arg)">
 .directive("miTitulo",[function(){
-   var directiveDefinitionObject ={
+   var directive ={
 
         restrict:"E",
-        replace : true,
+
+        // Se puede omitir la propiedad replace.
+        //replace : false, // Porque en la propiedad 'template' vamos a poner más de una etiqueta.
         // Las comillas de dentro hay que ponerlas: \".
-        template:"<div>Titulo: {{titulo}}</div>",
+        // ¡¡ IMPORTANTE !!: El valor de la propiedad 'template' debe estar formado por cadenas
+        //únicamente, no se pueden incluir variables tal cual. 
+        template:"<span>Titulo:{{titulo}}</span><br><br>"+"<button ng-click=mostrarAviso()>Pulsame</button><br>",
+        
         // Indicamos que la variable 'titulo' NO pertenece al scope del controlador
         scope:{
             // Al poner texto:”@” lo que le hemos dicho es que el valor del atributo titulo 
             //se copie en la propiedad texto del scope de la directiva.
-            titulo:"@"
+            titulo:"@",
+            
+            // ERROR: No funciona, no se ejecuta la función
+            mostrarAviso:"&" // el '&' se utiliza para llamar a funciones
         },
         
         // La función link se ejecutará al iniciarse la directiva y acepta estos parámetros:
@@ -575,7 +659,10 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
         //transcludeFn: Veremos esta función en la unidad 00_start
 
          link:function(scope, iElement, iAttrs, controller, transcludeFn) {
-
+            
+            // ERROR: No funciona, no se añade la variable al scope
+            scope.varScopeNew="Hola, ya he sido creada";
+            
             var htmlColor;
             switch (iAttrs.color) {
                 case "rojo":
@@ -594,18 +681,18 @@ var an = angular.module("moduleAngular", ['ngRoute','ngSanitize','moduleAuxiliar
             iElement.css("color",htmlColor);
         }
     }
-return directiveDefinitionObject;
+return directive;
 }])
 
 
 
-
+// <data-mi-titulo2 texto="mensaje"></data-mi-titulo2>
 .directive("miTitulo2",[function(){
-   var directiveDefinitionObject ={
+   var directive ={
         restrict:"E",
         replace : false,
         // Las comillas de dentro hay que ponerlas: \".
-        template:"{{texto}}<br><button ng-click=\"texto='Texto cambiado desde dentro de la directiva'\">Cambiar valor de scope.texto de la directiva y del controlador</button></div>",
+        template:"{{texto}}<div><button ng-click=\"texto='Texto cambiado desde dentro de la directiva'\">Cambiar valor de scope.texto de la directiva y del controlador</button></div>",
         // Indicamos que la variable 'titulo' NO pertenece al scope del controlador
         scope:{
             // Al poner texto:”=” lo que le hemos dicho es que la propiedad texto del 
@@ -615,7 +702,7 @@ return directiveDefinitionObject;
         }
     }
    
-    return directiveDefinitionObject;
+    return directive;
 }])
 // ====================================================================================================== -->
 
@@ -624,69 +711,70 @@ return directiveDefinitionObject;
 // ====================================================================================================== -->
 // ** FORMULARIO CON VALIDACIONES Y ETIQUETAS NUEVAS CREADAS CON EL SERVICIO '.directive' 
 
-//<data-ng-mi-validacion-nombre data-ng-if="validacionNombre">
+// view1.html
+
 // El nombre de la directiva será: 'prefijoNombreNombre2' y en el html tendrá la forma: "data-prefijo-nombre-nombre2"
+//<data-ng-mi-validacion-nombre data-ng-if="validacionNombre">
 .directive("miValidacionNombre",[function(){
 
-    var directiveDefinitionObject ={
+    var directive ={
         restrict:"E",
         replace : true,
         // Las comillas deben estar precedidas de '\'.
         template:"<span  class=\"error\" data-ng-show=\"miFormulario.firstName.$error.maxlength\">Nombre demasiado largo</span>"
     }
    
-    return directiveDefinitionObject;
+    return directive;
 }])
 
 
 //<data-ng-mi-validacion-apellido data-ng-if="validacionApellido">
 .directive("miValidacionApellido",[function(){
 
-    var directiveDefinitionObject ={
+    var directive ={
         restrict:"E",
         replace : true,
         // Las comillas deben estar precedidas de '\'.
         template:"<span  class=\"error\" data-ng-show=\"miFormulario.lastName.$error.minlength\">Apellido demasiado corto</span>"
     }
    
-    return directiveDefinitionObject;
+    return directive;
 }])
 
 
 //<data-ng-mi-validacion-ciudad data-ng-if="validacionCiudad">
 .directive("miValidacionCiudad",[function(){
 
-    var directiveDefinitionObject ={
+    var directive ={
         restrict:"E",
         replace : true,
         // Las comillas deben estar precedidas de '\'.
         template:"<span  class=\"error\" data-ng-show=\"miFormulario.city.$error.pattern\">Nombre de ciudad incorrecto</span>"
     }
    
-    return directiveDefinitionObject;
+    return directive;
 }])
 
 
 //<data-ng-mi-validacion-edad data-ng-if="validacionEdad">
 .directive("miValidacionEdad",[function(){
     
-    var directiveDefinitionObject ={
+    var directive ={
 
         restrict:"E",
         replace : false,
         // Las comillas de dentro hay que ponerlas: \".
-        //template:"<span class=error data-ng-show=miFormulario.age.$error.max>Edad inválida XD</span>",
         template:"<span class=\"error\" data-ng-show=\"miFormulario.age.$error.min && validacionEdad\">Tienes que tener 18 años</span><span class=\"error\" data-ng-show=\"miFormulario.age.$error.max && validacionEdad\">Edad inválida</span><span class=\"error\" data-ng-show=\"miFormulario.age.$error.number && validacionEdad\">La edad debe ser numérica</span>",
        
         
     }     
-    return directiveDefinitionObject;
+    return directive;
 }])
 
 //<data-ng-mi-validacion-telefono data-ng-if="validacionTelefono">
 .directive("miValidacionTelefono",[function(){
     
-   var directiveDefinitionObject ={
+   var directive ={
 
         restrict:"E",
         replace : true,
@@ -696,43 +784,43 @@ return directiveDefinitionObject;
        
         
     }     
-    return directiveDefinitionObject;
+    return directive;
 }])
 
 //<data-ng-mi-validacion-email data-ng-if="validacionEmail">
 .directive("miValidacionEmail",[function(){
 
-    var directiveDefinitionObject ={
+    var directive ={
         restrict:"E",
         replace : true,
         // Las comillas deben estar precedidas de '\'.
         template:"<span  class=\"error\" data-ng-show=\"miFormulario.email.$error.email\">Email no válido</span>"
     }
    
-    return directiveDefinitionObject;
+    return directive;
 }])
 
 //<data-ng-mi-validacion-url data-ng-if="validacionUrl">
 .directive("miValidacionUrl",[function(){
 
-    var directiveDefinitionObject ={
+    var directive ={
         restrict:"E",
         replace : true,
         // Las comillas deben estar precedidas de '\'.
         template:"<span  class=\"error\" data-ng-show=\"miFormulario.url.$error.url\">Url no válido</span>"
     }
    
-    return directiveDefinitionObject;
+    return directive;
 }])
 
 
 
 /*
 
-// ¡¡ NO FUNCIONA !!
+// ERROR: NO FUNCIONA 
 .directive("miValidacionAge",[function(){
     
-    var directiveDefinitionObject ={
+    var directive ={
 
         restrict:"E",
         replace : false,
@@ -747,7 +835,7 @@ return directiveDefinitionObject;
             campo:"@"
         }
     }
-    return directiveDefinitionObject;
+    return directive;
 }])
 
 */

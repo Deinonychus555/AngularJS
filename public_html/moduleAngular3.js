@@ -1,3 +1,5 @@
+// templateUrl: 'view3.html'
+
 var app=angular.module("moduleSeguro",[])
    
 .controller("controllerSeguro",['$scope','$routeParams','$log','$http','$location',function($scope,$routeParams,$log,$http,$location) {

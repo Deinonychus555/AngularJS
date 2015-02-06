@@ -1,4 +1,6 @@
-// Configuración de un módulo.
+//// templateUrl: 'view2.html'
+// 
+// // Configuración de un módulo.
 // angular.module("nombre_del_modulo", ['ngRoute', "modulo3", dependenia1", "dependencia2","..."])
 var auxiliar = angular.module("moduleAuxiliar", ['ngRoute']) // ¡NO se pone ';' al final!
 

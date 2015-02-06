@@ -1,3 +1,6 @@
+<!-- moduleAngular.js / controller: 'controllerAngular' -->
+
+
 <div>
 <div data-ng-show="param1!=null">Parametro 1: {{param1}}</div>
 <!-- Con null se compara con el '==' y NO con el '==='-->
@@ -7,15 +10,37 @@
 <button data-ng-click="toIndex()">Return to index</button>
 <br><br>
 
+<!-- ====================================================================================================== -->
+<!-- ** ETIQUETAS NUEVAS CREADAS CON EL SERVICIO '.directive' -->
+
+<!-- moduleAngular.js -->
+
+<div id="titulos">
    <h3>Trying with the directive service:</h3>
-    <p data-ng-bind="mensaje"><br><br>
-   <input type="text" data-ng-model="arg"><br>
-   <!-- scope:"@"-->
-   <data-mi-titulo titulo="{{arg|uppercase}}" color="azul"></data-mi-titulo><br><br>
-   <!-- scope:"="-->
+   <span data-ng-bind="mensaje"></span><br><br>
+   <input type="text" data-ng-model="arg" placeholder="Escribe un titular"><br><br>
+   
+   <!-- .directive("miTitulo",[function(){
+            var directive ={scope:{titulo:"@",mostrarAviso:"&"},
+                            link:function(iElement,iAttrs){iElement.css("color",iAttrs.color);}}
+            return directive;}]) -->
+   <!-- ERROR: No funciona, no se ejecuta la función show() -->
+   <data-mi-titulo titulo="{{arg|uppercase}}" color="azul" mostrarAviso="show()"></data-mi-titulo><br><br> 
+   
+   <!-- .directive("miTitulo",[function(){
+            var directive ={ link:function(scope){scope.varScopeNew="Hola, ya he sido creada"}};
+            return directive;}]) -->
+   <!-- ERROR: No funciona, no se añade la variable al scope -->
+  <span>Variable de scope creada dentro un servicio 'directive': {{varScopeNew}}</span><br><br>
+   
+   <!-- .directive("miTitulo2",[function(){
+                var directive ={scope:{texto:"="}}
+                return directive;}]) -->
    <data-mi-titulo2 texto="mensaje"></data-mi-titulo2><br><br>
-   
-   
+  
+</div>
+
+ <!-- ====================================================================================================== -->
   
 
    <h3>Trying with the ng-disabled-show-hide directive:</h3>
@@ -116,10 +141,14 @@
 <!-- ====================================================================================================== -->
 <!-- ** FORMULARIO CON VALIDACIONES Y ETIQUETAS NUEVAS CREADAS CON EL SERVICIO '.directive' -->
     
-    
+<!-- moduleAngular.js -->    
+
+
     <h3>Trying with the ng-click directive and validations</h3>
     
-    <!--¡IMPORTANTE!: Poner el atributo 'novalidate' en la etiqueta 'form' para que el navegador No realice validaciones que puedan colisionar con las de angularjs-->
+    <!--¡¡ IMPORTANTE !!: Poner el atributo 'novalidate' en la etiqueta 'form' para que el navegador No realice validaciones que puedan colisionar con las de angularjs-->
+    <!--¡¡ IMPORTANTE !!: En los campos del en los distintos elementos de entrada del formulario añadir
+    el atributo 'name', así como en la propia etiqueta 'form'-->
     <form name="miFormulario" data-ng-cloak novalidate>
         
         <fieldset> <!-- Con esta etiqueta todo las secciones del formulario se meten en recuadros-->
@@ -128,18 +157,22 @@
         
              <!-- Para que las validaciones funcionen es necesario que los distintos campos tengan la propiedad 'name'-->
             <label for="firstName">First name: </label><input type="text" name="firstName" data-ng-blur="validarNombre()"  data-ng-model="newCustomer.firstName"   data-ng-maxlength="20" placeholder="Nombre"  required> 
+            <!-- .directive("miValidacionNombre", -->
             <data-mi-validacion-nombre data-ng-if="validacionNombre"></data-mi-validacion-nombre><br><br>
             
             <label for="lastName">Last name: </label><input type="text" name="lastName" data-ng-blur="validarApellido()"  data-ng-model="newCustomer.lastName" ng-minlength="3" placeholder="Apellido" required>
+            <!-- .directive("miValidacionApellido", -->
             <data-mi-validacion-apellido data-ng-if="validacionApellido"></data-mi-validacion-apellido> <br><br>
             
             <label for="city">City: </label><input type="text" name="city" data-ng-blur="validarCiudad()" data-ng-model="newCustomer.city" data-ng-pattern="pattern" placeholder="Ciudad" required> 
             <!-- Invocamos una directiva creada por nosotros-->
+            <!-- .directive("miValidacionCiudad", -->
             <data-mi-validacion-ciudad data-ng-if="validacionCiudad"></data-mi-validacion-ciudad><br><br>
             
             <!--Las directivas 'min' y 'max' se ponen sin el prefijo 'ng-'-->
             <label for="age">Age:</label> <input type="number" name="age" data-ng-blur="validarEdad()" data-ng-model="newCustomer.age" max="99" min="18" placeholder="Has de ser mayor de edad" required > 
             <!-- Comprobamos la validez de la direcitva 'min'-->
+            <!-- .directive("miValidacionEdad", -->
             <data-mi-validacion-edad data-ng-if="validacionEdad"></data-mi-validacion-edad><br><br>
             
             <label for="sexo">Sexo:</label>
@@ -149,10 +182,13 @@
                 <option value="M">Mujer</option>
             </select><br><br>
             
-            <label data-ng-hide="newCustomer.sexo!=='M'" for="embarazada">Embarazada:</label><input data-ng-if="newCustomer.sexo==='M'" id="embarazada" name="embarazada" type="checkbox" ng-model="newCustomer.embarazada" /><br data-ng-hide="newCustomer.sexo!=='M'"><br ng-hide="newCustomer.sexo!=='M'">
+            <label data-ng-hide="newCustomer.sexo!=='M'" for="embarazada">Embarazada:</label>
+            
+            <!-- $scope.reset=function(){... window.document.miFormulario["embarazada"].disabled=false ... -->
+            <input data-ng-show="newCustomer.sexo==='M'" id="embarazada" name="embarazada" type="checkbox" ng-model="newCustomer.embarazada"/><br data-ng-hide="newCustomer.sexo!=='M'"><br ng-hide="newCustomer.sexo!=='M'">
             
             
-            <!-- ¡¡NO FUNCIONA!! -->
+            <!-- ERROR: NO FUNCIONA -->
             <!-- <data-mi-validacion-age campo="max"></data-mi-validacion-age> -->
             
 
@@ -160,23 +196,25 @@
             <data-mi-validacion-telefono data-ng-if="validacionTelefono" ></data-mi-validacion-telefono><br><br>
             
             <label for="email">Email:</label> <input type="email" name="email" data-ng-blur="validarEmail()"   data-ng-model="newCustomer.email" placeholder="micorreo@dominio.xx" data-ng-required="requerido"> 
+            <!-- .directive("miValidacionEmail", -->
             <data-mi-validacion-email data-ng-if="validacionEmail" ></data-mi-validacion-email><br><br>
             
             <label for="url">Url:</label> <input type="url" name="url" data-ng-blur="validarUrl()"  data-ng-model="newCustomer.url" placeholder="http://www.direccion.xxx"  data-ng-required="requerido"> 
+            <!-- .directive("miValidacionUrl", -->
             <data-mi-validacion-url data-ng-if="validacionUrl"></data-mi-validacion-url><br><br>
             
             <!-- Con la directiva ng-click manejamos eventos de clic llamando a una función del scope-->
             <!-- El botón estará inactivo si el formulario es inválido -->
             <button name="addCustomer" data-ng-click="addCustomer()" data-ng-disabled="miFormulario.$invalid">Add customer</button>
             
-            <button name="resetAll" data-ng-click="reset()">Reset</button>
+            <button name="resetAll" data-ng-click="reset()">Reset all</button>
             
             <!-- Cuando queramos crear las opciones de una etiqueta 'select' con los nombres de un array simple se hará de la
             siguiente forma: ng-options="o as o for o in arraySimple" -->
             <select name="resetOption" data-ng-model="resetOption" data-ng-change="reset()" ng-options="o as o for o in customerCampos">
                 <option value="">-- Reset --</option>
                 <!--con la directiva ng-options no se pueden añadir más opciones-->
-            </select>
+            </select>{{resetOption}}
             <br>
         </fieldset>    
     </form>

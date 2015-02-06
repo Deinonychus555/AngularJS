@@ -1,3 +1,5 @@
+// templateUrl: 'view4.html'
+
 function HashProvider() {
 
   var _algoritmo="";
